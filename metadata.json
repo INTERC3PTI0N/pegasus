@@ -1,0 +1,6 @@
+{
+  "name": "Pegasus Hair Tools",
+  "description": "The official premium platform for Pegasus Hair Tools, engineering professional styling tools since 1961. Experience the craftsmanship of Flexinite technology.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
