@@ -22,74 +22,75 @@ export default function Blog() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
+  // Editorial from the Pegasus Académie — pegasushairtools.com/blog
   const articles: Article[] = [
     {
       id: '1',
-      title: 'The Chemistry of Flexinite: Responsive Material Science in Salon Heat',
-      category: 'technology',
-      readTime: '6 min read',
-      date: 'June 28, 2026',
-      author: 'Dr. Evelyn Brand',
-      authorRole: 'Director of Material Research, Presto Labs',
-      summary: 'An inside look at how Flexinite responds intelligently to high blow dryer heat by optimizing its atomic flex, delivering professional cuticle polish without snagging.',
+      title: 'No More Frizz!',
+      category: 'trichology',
+      readTime: '4 min read',
+      date: 'Pegasus Académie',
+      author: 'Pegasus Académie',
+      authorRole: 'Editorial Team, Pegasus Hair Tools',
+      summary: 'Dry, frizzy hair complicates styling and makes every morning harder than it needs to be. Here is how the right comb calms the chaos for better-looking hair daily.',
       image: '/images/pegasus_luxury_salon.jpg',
-      content: `Friction is the ultimate enemy of the hair cuticle. Standard mass-market plastic combs are made via injection molding, leaving raw, micro-sharp seams on every tooth. When combined with hair dryer heat exceeding 120°C, these cheap polymers soften awkwardly, snagging individual hairs, scraping off the cuticle scales, and creating irreversible split ends.
+      content: `Dry and frizzy hair is the most common styling complaint we hear from hairdressers and their clients. Frizz makes hair difficult to manage, styles refuse to hold, and the finished look loses its polish within hours.
 
-Pegasus engineers set out to solve this with FLEXINITE — a proprietary bio-rubber polymer blend. Unlike standard materials, Flexinite is responsive. When subjected to blow-dryer heat, the teeth of a Flexinite comb dynamically adapt their atomic elasticity. They mimic natural hair fiber resilience.
+Much of that frizz is self-inflicted — created by friction from the wrong combing tools. Ordinary injection-moulded combs carry microscopic seams along every tooth that roughen the hair surface with every pass, lifting the cuticle and inviting static.
 
-#### Seamless Perfection
-Every tooth is hand-sawn and hand-polished. When thermal energy transfers from the dryer to the comb, Flexinite achieves a glass-like glide, distributing heat evenly across the hair shaft and locking in natural moisture. The result is a high-gloss, mirror-like finish that professionals call 'The GlamLock Effect.' This is not just styling; it is active molecular care.`
+#### Calm Hair Starts With the Right Comb
+Pegasus combs are saw-cut and hand polished so every tooth is seamless and rounded. Combined with StaticBlock Technology in our Ecowood range — naturally anti-static and anti-bacterial — fly-aways are prevented and frizz is visibly reduced. Smooth, polished teeth glide gently through the hair, so you can style without the struggle, every single day.`
     },
     {
       id: '2',
-      title: 'Uncompromising Precision: Sixty Years of Presto Industries Craftsmanship',
-      category: 'history',
-      readTime: '8 min read',
-      date: 'May 14, 2026',
-      author: 'Jean-Laurent Presto',
-      authorRole: 'Managing Director, Presto Industries',
-      summary: 'Tracing our legacy from a small, family-owned toolmaking facility in 1961 to a worldwide leader in professional hairdressing innovations.',
-      image: '/images/pegasus_ecowood.jpg',
-      content: `In 1961, the global hairdressing market was undergoing a silent crisis. The rise of synthetic polymers led to cheap, mass-manufactured grooming tools that stripped scalp health. Presto Industries was founded with a singular conviction: salon-quality hair tools must be manufactured like precision instruments, not disposable novelties.
+      title: 'Give Your Hair the Soft Touch of Protection',
+      category: 'trichology',
+      readTime: '5 min read',
+      date: 'Pegasus Académie',
+      author: 'Pegasus Académie',
+      authorRole: 'Editorial Team, Pegasus Hair Tools',
+      summary: 'Understanding the hair cuticle — and why the wrong comb quietly damages your hair, especially when it is wet or undergoing chemical treatments.',
+      image: '/images/pegasus_cellulose.jpg',
+      content: `Every strand of hair is wrapped in a protective layer called the cuticle — overlapping scales that, when healthy, lay flat and reflect light for natural shine. Damage that layer and hair turns dull, coarse and prone to split ends.
 
-#### The Art of Vulcanized Rubber
-By 1977, Presto had perfected the vulcanization of natural organic rubber (Vulcanite). Hard rubber combs are crafted through intensive vulcanization, baking natural tree sap rubber in steel ovens under immense steam pressure. This creates an extremely dense, chemically resistant material that can be sawn, cut, and polished by hand.
+The wrong comb is one of the most common culprits. Sharp, seamed teeth scrape the cuticle with every stroke, and the risk multiplies when hair is at its most vulnerable: wet after a wash, or mid-way through colouring and chemical treatments.
 
-Our craftsmen spend years mastering the saw-cutting process. Each tooth is carved one-by-one with dedicated diamond wheels. The comb is then hand-beveled and polished with pumice and clay to ensure a flawless seamless glide. In 2012, this premium technology culminated in the launch of our pinnacle brand: PEGASUS. Today, sixty years later, we remain committed to engineering tools that honor the professional hairdresser.`
+#### Protection by Design
+Pegasus GlamLock combs are crafted with seamless, hand-polished teeth that detangle easily without scraping. The smooth rounded tips massage the scalp, stimulate healthy blood circulation and spread the hair's natural oils evenly from roots to tips — protection and shine in a single stroke.`
     },
     {
       id: '3',
-      title: 'The Trichological Impact: Why Seamless Cellulose Acetate Prevents Split Ends',
-      category: 'trichology',
+      title: 'Handmade Combs by Pegasus to Show Care Towards Your Mane',
+      category: 'history',
       readTime: '5 min read',
-      date: 'April 03, 2026',
-      author: 'Marcus Vance',
-      authorRole: 'Senior Trichological Consultant, London',
-      summary: 'Why plant-based, tactile cellulose acetate and handcrafted rounded tips are crucial for protecting sensitive hair follicles and maintaining scalp health.',
-      image: '/images/pegasus_cellulose.jpg',
-      content: `Under an electron microscope, a damaged hair shaft resembles a frayed rope. The cuticle scales, which should lay flat like shingles on a roof, are blown outwards, refracting light poorly and causing a dull, coarse appearance. The most common culprit is mechanical damage from combing.
+      date: 'Pegasus Académie',
+      author: 'Pegasus Académie',
+      authorRole: 'Editorial Team, Pegasus Hair Tools',
+      summary: 'Why hand-sawn combs with rounded, hand-polished edges stimulate natural oils and distribute them effectively — craftsmanship your hair can feel.',
+      image: '/images/pegasus_ecowood.jpg',
+      content: `Since Presto Industries began manufacturing combs in 1977, one principle has never changed: a comb worth using must be made by hand.
 
-#### The Plant-Based Cellulose Advantage
-Cellulose acetate is a 100% natural material derived from organic wood pulp and cotton fibers. It is naturally tactile, meaning it matches the biological temperature of the human scalp almost instantly, avoiding thermal shock.
+Each Pegasus comb is hand sawn — every tooth individually cut, then rounded and hand-polished until no seam or sharp edge remains. It is slow, deliberate work that mass-produced moulded combs simply cannot replicate.
 
-Because cellulose is hand-crafted from raw sheet material rather than poured into cheap injection molds, it does not possess a molding line. This seamless construction is vital. When a stylist combs through wet, vulnerable hair, the rounded tips of a Pegasus Cellulose comb massage the scalp, stimulating micro-circulation, while the polished tooth edges lay cuticle scales perfectly flat. For client scalp protection and lasting shine, cellulose acetate is the undisputed gold standard.`
+#### Craftsmanship Your Scalp Can Feel
+Those rounded, polished edges do more than feel luxurious. They stimulate the scalp's natural oils and distribute them effectively along the full length of the hair, nourishing every strand from root to tip. The result is hair that looks healthier because it genuinely is — cared for by a tool that was itself made with care.`
     },
     {
       id: '4',
-      title: 'Dissipating Friction: The Physics of StaticBlock Carbon Technology',
+      title: 'FLEXINITE Technology Infused Hair Combs by Pegasus',
       category: 'technology',
-      readTime: '7 min read',
-      date: 'March 11, 2026',
-      author: 'Dr. Helen Cho',
-      authorRole: 'Electro-Static Specialist, Munich Tech',
-      summary: 'How our proprietary carbon-infused polymer matrix actively neutralizes static charge during high-velocity combing and dry environments.',
+      readTime: '6 min read',
+      date: 'Pegasus Académie',
+      author: 'Pegasus Académie',
+      authorRole: 'Editorial Team, Pegasus Hair Tools',
+      summary: '100% hard rubber + FLEXINITE technology — developed after extensive research into global hair textures and climate conditions.',
       image: '/images/pegasus_hard_rubber.jpg',
-      content: `Every single stroke of a hair comb creates mechanical friction. This friction transfers electrons from the hair fibers to the comb, resulting in a positive electrical charge on the hair shaft. Because like-charges repel, the hair fibers literally push away from each other, leading to flyaways, wild frizz, and unmanageable styling.
+      content: `Pegasus hard rubber combs are made of 100% hard rubber (Ebonite) infused with our proprietary FLEXINITE technology — the result of extensive research examining hair textures and climate conditions across the world.
 
-#### Neutralizing the Charge
-Pegasus STATICBLOCK technology solves this by infusing a highly conductive, microscopic carbon-fiber matrix into our hard rubber formula. This carbon matrix acts as a ground. 
+FLEXINITE makes the comb respond to temperature changes. Under dryers and irons the material stays high-heat resistant while remaining flexible, strong and durable — a truly versatile experience for cutting, colouring and styling.
 
-During combing, as friction builds, the carbon fibers immediately capture the free electrons and dissipate the electric potential through the comb body rather than leaving it on the hair shaft. This active grounding results in instantly calm, perfectly aligned hair fibers. Stylists working in low-humidity fashion-week environments find StaticBlock to be indispensable for achieving glass-like editorial sleekness.`
+#### Built for Professionals
+That is why professional hairdressers across the world trust the Pegasus hard rubber range for precision cutting and styling. Chemical resistant against daily salon colour work, gentle on every hair type, and built to last years of session use — this is infinite styling, engineered.`
     }
   ];
 

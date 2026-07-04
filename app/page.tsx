@@ -1,16 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import {
-  Menu,
-  X,
   ArrowRight,
   ChevronRight,
   Globe,
   User,
-  Scissors,
-  ExternalLink
+  Scissors
 } from 'lucide-react';
 
 // Luxury components
@@ -31,9 +29,6 @@ export default function Home() {
   const [selectedTech, setSelectedTech] = useState<'glamlock' | 'flexinite' | 'staticblock'>('flexinite');
   const [activeCollection, setActiveCollection] = useState<'rubber' | 'cellulose' | 'wood'>('rubber');
   const [activeTimelineYear, setActiveTimelineYear] = useState('1961');
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   // Simulating Preloader Loading Experience (0 to 100%)
   useEffect(() => {
@@ -56,92 +51,89 @@ export default function Home() {
   // Smooth jump to sections
   const navigateToSection = (sectionId: string) => {
     setActiveSection(sectionId);
-    setMenuOpen(false);
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
-  // Timeline specifications
+  // Timeline specifications — the real Presto Industries story
   const timelineData = [
     {
       year: '1961',
       title: 'Presto Industries Founded',
-      desc: 'Established with a singular mission: engineering highly robust toolmaking equipment. Introduces organic hot-press hard rubber vulcanization to the European hair market, replacing raw metal styling teeth with safe organic compounds.',
+      desc: 'Lookman Qadir establishes Presto Industries with a singular conviction: grooming tools must be manufactured like precision instruments, not disposable novelties. The foundation of six decades of toolmaking begins.',
     },
     {
       year: '1977',
-      title: 'Diamond saw-cut expansion',
-      desc: 'Perfects precision hand-finished comb manufacturing. Implements diamond-ground saw wheels carving individual comb teeth. Standardized seamless teeth rounding to protect sensitive hair cuticles globally.',
-    },
-    {
-      year: '1995',
-      title: 'Molecular Elastomer R&D',
-      desc: 'Inaugurates a state-of-the-art material laboratory. Collaborates with leading Munich polymers institute to draft custom thermo-adaptable compounds. Laying structural foundations for what would eventually become Flexinite.',
+      title: 'Comb Manufacturing Begins',
+      desc: 'Presto Industries begins manufacturing combs, mastering the craft of saw-cutting individual teeth and hand-polishing every edge — the seamless, rounded finish that still defines Pegasus today.',
     },
     {
       year: '2012',
-      title: 'The Pinnacle Pegasus Launch',
-      desc: 'Launches Pegasus Professional line. Infuses advanced material science directly into salon culture. Becomes an instantaneous cult-classic amongst session stylists in Paris, Milan, and New York runway backstages.',
+      title: 'Pegasus Launches',
+      desc: 'After extensive research examining global hair textures and climate conditions, Pegasus launches as Presto Industries’ hard rubber comb brand, featuring proprietary Flexinite Technology.',
     },
     {
       year: 'Today',
       title: 'Infinite Styling Standard',
-      desc: 'Distributed in over 80 countries. A multi-generational engineering icon representing global salon trust, zero cuticle breakage, and frictionless structural control.',
+      desc: 'Professional hair styling tools trusted by hairdressers across the world — supported by three core technologies: GlamLock, Flexinite and StaticBlock, across Cellulose, Hard Rubber and Ecowood ranges.',
     }
   ];
 
   const collectionsData = {
     rubber: {
-      title: 'Hard Rubber (Vulcanite)',
-      materials: '100% Organic Vulcanite Rubber with Flexinite',
-      description: 'Manufactured by baking organic natural rubber sheets in high-pressure steam ovens. Features high chemical resistance, rigid backbone posture, and micro-flexible tooth ends that mimic hair elasticity.',
-      specifications: ['100% Organic natural rubber base', 'Infused with smart FLEXINITE elastomer', 'Virtually impervious to bleach and peroxide', 'Hand-cut diamond teeth edges'],
+      title: 'Hard Rubber (100% Ebonite)',
+      materials: '100% Hard Rubber with Flexinite Technology',
+      href: '/collections/hard-rubber',
+      description: 'The only professional combs that provide precision, quality and sustainability along with glamour and funk to groom all hair types. High-heat and chemical resistant; flexible, strong and durable.',
+      specifications: ['100% hard rubber (Ebonite) base', 'Proprietary FLEXINITE technology', 'High-heat and chemical resistant', 'Saw-cut, hand-bevelled teeth'],
     },
     cellulose: {
       title: 'Cellulose Acetate',
       materials: 'Plant-based Wood Pulp & Cotton Fibers',
-      description: 'Handcrafted from premium natural raw blocks. Highly tactile material that adapts instantly to body temperature. Features translucent, elegant tortoiseshell aesthetics, with glass-smooth seamless tips.',
-      specifications: ['Handcrafted plant-derived sheets', 'Zero-seam organic construction', 'Static-free high density fibers', 'Luxurious tortoiseshell polish'],
+      href: '/collections/cellulose',
+      description: 'Saw-cut, then hand polished and buffed to ensure smooth, rounded teeth that massage your scalp. GlamLock seamless teeth detangle hair easily, stimulate the scalp and make hair smooth and shiny.',
+      specifications: ['GLAMLOCK seamless teeth', 'Hand polished and buffed', 'Spreads natural oils root to tip', 'Hair and scalp friendly'],
     },
     wood: {
-      title: 'Ecowood Composite',
-      materials: 'Organic Wood Fiber & Bio-polymers',
-      description: 'An eco-responsible premium composite combining natural beechwood fibers with high-grade organic binders. Delivers an elegant wood-grain aesthetic with exceptional water and high salon temperature resistance.',
-      specifications: ['Upcycled FSC beechwood fiber composite', 'High-heat thermal threshold (230°C)', 'Lightweight ergonomic body', 'Rich biological wood grain texturing'],
+      title: 'Ecowood',
+      materials: 'Natural Wood — Anti-static & Anti-bacterial',
+      href: '/collections/ecowood',
+      description: 'Sustainable, natural, eco-friendly. StaticBlock Technology prevents fly-aways and reduces frizz, while smooth polished teeth ensure a gentle glide — perfect for sensitive scalps.',
+      specifications: ['STATICBLOCK fly-away control', 'Naturally anti-static & anti-bacterial', 'Gentle rounded tips for sensitive scalps', 'Earth & scalp friendly'],
     }
   };
 
   const techData = {
     flexinite: {
       title: 'FLEXINITE TECHNOLOGY',
-      subtitle: 'Responsive Thermal Elasticity',
-      highlights: 'Flexible. Adapts dynamically under heat to protect the hair cuticle.',
-      details: 'A revolutionary material configuration where comb teeth dynamically soften slightly during heat styling (under hair dryers and straighteners), responding with a flexible glide to prevent mechanical snagging or cuticle scale stripping. Returns to rigid alignment immediately upon cooling.',
+      subtitle: 'A Truly Versatile Experience',
+      highlights: 'Flexible. Responds to temperature changes for versatile styling.',
+      details: 'Developed after extensive research examining global hair textures and climate conditions, Flexinite is the proprietary technology behind Pegasus 100% hard rubber (Ebonite) combs. The material responds to temperature changes, staying high-heat and chemical resistant while remaining flexible, strong and durable — precision cutting and styling, for professionals.',
       hotspots: [
-        { title: 'Responsive Elastomer', desc: 'Slightly yields under pressure to mimic natural hair elasticity.' },
-        { title: 'Thermal Adaptability', desc: 'Optimizes glide friction under high-velocity hair dryer heat.' },
+        { title: 'Thermo-Responsive Body', desc: 'Responds to temperature changes under dryers and irons for a frictionless glide.' },
+        { title: 'Salon-Grade Resistance', desc: 'High-heat and chemical resistant for daily professional use.' },
       ]
     },
     glamlock: {
       title: 'GLAMLOCK TECHNOLOGY',
-      subtitle: 'Seamless Cuticle Mirror Polish',
-      highlights: 'Flawlessly rounded tips. Completely eliminates friction and scraping.',
-      details: 'A specialized hand-finishing sawing process where each individual tooth is hand-cut and polished with natural volcanic clays. Eliminates microscopic molding seams, creating perfectly round tips that massage the scalp and align cuticle scales to maximize natural light reflection.',
+      subtitle: 'Smooth. Shiny. Seamless.',
+      highlights: 'Seamless teeth that detangle easily and stimulate the scalp.',
+      details: 'Ordinary combs have sharp teeth which can roughen the hair and cause scalp damage. GlamLock combs are saw-cut, then hand polished and buffed so seamless, rounded teeth detangle hair easily, massage the scalp for healthy blood circulation, and spread the hair’s natural oils evenly from roots to tips — making hair smooth and shiny.',
       hotspots: [
-        { title: 'Organic Rounded Tips', desc: 'Gentle scalp stimulation without scraping or follicular irritation.' },
-        { title: 'Sartorial Polish', desc: 'Launches cuticle scales flat to reflect maximum salon light.' },
+        { title: 'Seamless Rounded Teeth', desc: 'Hand-finished tips glide without scraping the cuticle or the scalp.' },
+        { title: 'Natural Shine', desc: 'Distributes natural oils from roots to tips for healthy lustre.' },
       ]
     },
     staticblock: {
       title: 'STATICBLOCK TECHNOLOGY',
-      subtitle: 'Carbon-Fiber Neutralizing Matrix',
-      highlights: 'Conductive carbon blend. Dissipates flyaway charges instantly.',
-      details: 'Features a microscopic carbon-fiber grid dispersed evenly inside the polymer matrix. This grid functions as a structural ground, instantly capturing electrostatic charge build-up from mechanical comb friction and grounding it safely, eradicating static frizz and flyaways.',
+      subtitle: 'Calm Hair. Naturally.',
+      highlights: 'Prevents fly-aways and reduces frizz — naturally anti-static.',
+      details: 'StaticBlock is the natural intelligence of the Pegasus Ecowood range. The organic wood body is inherently anti-static and anti-bacterial, preventing fly-aways and reducing frizz, while smooth polished teeth ensure a gentle glide — perfect for sensitive scalps, and completely earth friendly.',
       hotspots: [
-        { title: 'Conductive Grounding', desc: 'Neutralizes electrical charges build-up from dry styling.' },
-        { title: 'Zero flyaway stability', desc: 'Perfect alignment of hair fibers in runway backstages.' },
+        { title: 'Natural Static Control', desc: 'Anti-static material calms fly-aways during dry combing.' },
+        { title: 'Sensitive-Scalp Safe', desc: 'Gentle rounded tips prevent scraping or bruising the scalp.' },
       ]
     }
   };
@@ -205,10 +197,15 @@ export default function Home() {
             className="fixed inset-0 bg-white z-50 flex flex-col justify-between p-12 overflow-hidden"
           >
             <div>
-              <span className="mono-tag text-[11px] text-accent tracking-[0.3em] block mb-2">
+              <span className="mono-tag text-[11px] text-accent tracking-[0.3em] block mb-3">
                 PRESTO INDUSTRIES — EST. 1961
               </span>
-              <h1 className="display-text text-xl text-ink font-semibold tracking-widest">PEGASUS</h1>
+              <img
+                src="/images/pegasus-logo.png"
+                alt="PEGASUS — Infinite Styling"
+                className="h-10 w-auto"
+                draggable={false}
+              />
             </div>
 
             {/* Levitating comb in pure light */}
@@ -227,7 +224,7 @@ export default function Home() {
               <div>
                 <span className="mono-tag text-[11px] text-accent block mb-1">INFINITE STYLING</span>
                 <span className="text-xs text-silver block max-w-xs leading-relaxed">
-                  Engineering professional salon instruments through material innovation and six decades of German craftsmanship.
+                  Engineering professional hair styling tools through material innovation and six decades of handcrafted precision.
                 </span>
               </div>
 
@@ -246,86 +243,7 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* 2. Premium Luxury Navigation Header — JUUN.J editorial style */}
-      <header className="fixed top-0 left-0 w-full z-40 bg-white/70 backdrop-blur-md border-b border-black/5 py-5 px-6 md:px-12 flex justify-between items-center">
-        <div className="flex items-baseline gap-1.5 cursor-pointer" onClick={() => navigateToSection('hero')}>
-          <h1 className="display-text text-lg md:text-xl text-ink font-semibold tracking-[0.18em]">
-            PEGASUS
-          </h1>
-          <span className="mono-tag text-[10px] text-accent uppercase">
-            pro
-          </span>
-        </div>
-
-        {/* Centered Desktop Links */}
-        <nav className="hidden lg:flex items-center gap-10 text-[13px] mono-tag text-ink/60 absolute left-1/2 -translate-x-1/2">
-          <button onClick={() => navigateToSection('about-timeline')} className="hover:text-ink transition-all cursor-pointer whitespace-nowrap">About</button>
-          <button onClick={() => navigateToSection('product-collections')} className="hover:text-ink transition-all cursor-pointer whitespace-nowrap">Collections</button>
-          <button onClick={() => navigateToSection('core-technologies')} className="hover:text-ink transition-all cursor-pointer whitespace-nowrap">Technology</button>
-          <button onClick={() => navigateToSection('ai-styling-assistant')} className="hover:text-ink transition-all cursor-pointer text-accent whitespace-nowrap">Rituals</button>
-          <button onClick={() => navigateToSection('editorial-blog')} className="hover:text-ink transition-all cursor-pointer whitespace-nowrap">Chronicles</button>
-        </nav>
-
-        {/* Right CTA — quiet, editorial */}
-        <div className="hidden lg:flex items-center gap-6">
-          <button
-            onClick={() => navigateToSection('request-brochure')}
-            className="mono-tag text-[13px] text-ink/60 hover:text-ink transition-all cursor-pointer"
-          >
-            Brochure
-          </button>
-          <button
-            onClick={() => navigateToSection('global-contact')}
-            className="group flex items-center gap-2 mono-tag text-[13px] text-ink transition-all cursor-pointer"
-          >
-            Contact Us
-            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-          </button>
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="lg:hidden p-2 text-ink hover:text-accent transition-all"
-        >
-          {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </header>
-
-      {/* Mobile Drawer Navigation */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 top-[72px] bg-white z-[45] flex flex-col justify-between p-8 overflow-y-auto"
-          >
-            <div className="space-y-6 text-center pt-8">
-              {['about-timeline', 'product-collections', 'core-technologies', 'ai-styling-assistant', 'professional-markets', 'editorial-blog', 'request-brochure', 'global-contact'].map((sec) => (
-                <button
-                  key={sec}
-                  onClick={() => navigateToSection(sec)}
-                  className="block w-full text-lg text-silver hover:text-ink py-2 uppercase tracking-[0.2em]"
-                >
-                  {sec.replace(/-/g, ' ')}
-                </button>
-              ))}
-            </div>
-
-            <div className="border-t border-black/5 pt-6 text-center space-y-4">
-              <span className="mono-tag text-[11px] text-accent uppercase">
-                PRESTO INDUSTRIES DEUTSCHLAND
-              </span>
-              <p className="text-xs text-silver">
-                sixty years of precision engineering salon tools.
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* 3. Navigation Dots (Sticky Right) */}
+      {/* Navigation Dots (Sticky Right) — header/footer live in the root layout */}
       <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-4">
         {['hero', 'about-timeline', 'product-collections', 'core-technologies', 'ai-styling-assistant', 'professional-markets', 'editorial-blog', 'request-brochure', 'global-contact'].map((sec) => (
           <button
@@ -378,26 +296,29 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="lg:col-span-4 space-y-4 max-w-xs"
+                className="lg:col-span-3 space-y-4 max-w-xs"
               >
                 <h3 className="display-text text-2xl md:text-3xl tracking-[0.06em] text-ink uppercase">
                   Our Craft
                 </h3>
                 <p className="text-sm text-silver leading-relaxed">
-                  At PEGASUS, every comb unfolds a new story — a journey through
-                  diamond saw-cut teeth, hand-beveled edges, and six decades of
-                  cutting-edge German toolmaking.
+                  Styling has been around for a thousand years. It is what makes
+                  an individual unique and remembered. We craft hair tools that
+                  offer infinite styling possibilities.
                 </p>
               </motion.div>
 
-              {/* Centre: campaign banner slider (desktop only) */}
+              {/* Centre: campaign banner slider (desktop only) — hover ~1s to
+                  expand into the full filmstrip */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="hidden lg:block lg:col-span-4"
+                className="hidden lg:block lg:col-span-6"
               >
-                <BannerSlider className="h-[260px] xl:h-[300px] w-full" />
+                <div className="relative h-[270px] xl:h-[310px] w-full">
+                  <BannerSlider expandable />
+                </div>
               </motion.div>
 
               {/* Right: seasonal block, accent heading */}
@@ -405,15 +326,15 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="lg:col-span-4 space-y-4 max-w-xs lg:ml-auto lg:mb-24"
+                className="lg:col-span-3 space-y-4 max-w-xs lg:ml-auto lg:mb-24"
               >
                 <h3 className="display-text text-2xl md:text-3xl tracking-[0.04em] uppercase" style={{ color: '#00adbb' }}>
                   Since 1961
                 </h3>
                 <p className="text-sm text-silver leading-relaxed">
-                  Redefines the essence of grooming, taking inspiration from its
-                  Munich roots and evolving it into an expression of sculptural,
-                  frictionless styling.
+                  From Presto Industries&rsquo; first workshop to combs trusted by
+                  hairdressers across the world — precision, quality and
+                  sustainability in every tooth.
                 </p>
                 <button
                   onClick={() => navigateToSection('product-collections')}
@@ -429,7 +350,7 @@ export default function Home() {
           {/* Bottom Bar facts */}
           <div className="relative z-30 border-t border-black/5 pt-6 mt-12 flex flex-col md:flex-row justify-between items-center gap-4">
             <span className="mono-tag text-[11px] text-silver">
-              Designed in Munich — Handcrafted globally
+              Handcrafted by Presto Industries — Trusted globally
             </span>
             <div className="hidden md:flex gap-8 text-[11px] mono-tag text-silver">
               <span>EST. 1961</span>
@@ -475,7 +396,7 @@ export default function Home() {
                 65 Years of Engineering Salon Precision
               </h3>
               <p className="text-sm text-silver leading-relaxed">
-                Pegasus was not designed overnight. We represent more than six decades of technical toolmaking under Presto Industries. Since 1961, we have built physical structures designed specifically for hair alignment, combining natural organic materials with premium mechanical saw-cutting systems.
+                Pegasus was not designed overnight. Founded by Lookman Qadir in 1961, Presto Industries began manufacturing combs in 1977 — and after extensive research examining global hair textures and climate conditions, launched Pegasus in 2012 as its hard rubber comb brand featuring Flexinite Technology.
               </p>
 
               {/* Horizontal Year Selector Buttons */}
@@ -603,6 +524,14 @@ export default function Home() {
                           ))}
                         </div>
                       </div>
+
+                      <Link
+                        href={col.href}
+                        className="group inline-flex items-center gap-2 bg-ink text-white hover:bg-accent px-6 py-3.5 mono-tag text-xs transition-colors cursor-pointer mt-2"
+                      >
+                        Explore The Collection
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                      </Link>
                     </motion.div>
                   );
                 })}
@@ -642,12 +571,12 @@ export default function Home() {
                   <p className="text-xs text-silver leading-normal">
                     Designed for heavy chemical processing resistance and frictionless dry detangling. Trusted by luxury salon academies globally.
                   </p>
-                  <button
-                    onClick={() => navigateToSection('request-brochure')}
+                  <Link
+                    href={collectionsData[activeCollection].href}
                     className="flex items-center gap-1.5 mono-tag text-[11px] text-accent pt-2 hover:underline cursor-pointer"
                   >
-                    View Catalog Spec Sheets <ChevronRight className="w-3 h-3" />
-                  </button>
+                    View The Full Range <ChevronRight className="w-3 h-3" />
+                  </Link>
                 </div>
               </div>
             </div>
@@ -893,104 +822,6 @@ export default function Home() {
 
       </main>
 
-      {/* 10. LUXURY PREMIUM FOOTER */}
-      <footer className="bg-white border-t border-black/5 pt-20 pb-10 px-6 md:px-12 lg:px-24 relative overflow-hidden">
-
-        {/* Massive PEGASUS wordmark — the comb comes home to rest across it */}
-        <div className="text-center mb-16 select-none pointer-events-none relative">
-          <h2 className="display-text text-[12vw] text-ink/[0.05] tracking-[0.08em] leading-none uppercase">
-            PEGASUS
-          </h2>
-          <span className="mono-tag text-xs text-accent/70 tracking-[0.3em] block -mt-4">
-            INFINITE STYLING
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 mb-12 border-b border-black/5 relative z-30">
-          {/* Col 1: Newsletter */}
-          <div className="space-y-4">
-            <span className="mono-tag text-[11px] text-accent block">Join The Academy Chronology</span>
-            <p className="text-xs text-silver leading-relaxed">
-              Receive periodic briefs on material science breakthroughs, professional tool launches, and exclusive salon masterclass guides.
-            </p>
-
-            {newsletterSubscribed ? (
-              <div className="bg-accent/10 border border-accent p-3 text-center text-xs text-ink rounded-lg">
-                Verified. You are on the registry.
-              </div>
-            ) : (
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Corporate email"
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  className="p-3 custom-input rounded-lg text-xs flex-1"
-                />
-                <button
-                  onClick={() => {
-                    if (newsletterEmail.includes('@')) {
-                      setNewsletterSubscribed(true);
-                    }
-                  }}
-                  className="px-4 py-3 bg-ink text-white hover:bg-accent transition-colors mono-tag text-xs rounded-lg cursor-pointer"
-                >
-                  Join
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Col 2: Navigation links */}
-          <div className="space-y-4 lg:pl-12">
-            <span className="mono-tag text-[11px] text-accent block">Atelier</span>
-            <ul className="space-y-2 text-xs text-silver">
-              <li><button onClick={() => navigateToSection('hero')} className="hover:text-ink transition-all cursor-pointer">The Campaign</button></li>
-              <li><button onClick={() => navigateToSection('about-timeline')} className="hover:text-ink transition-all cursor-pointer">Presto Chronicles</button></li>
-              <li><button onClick={() => navigateToSection('product-collections')} className="hover:text-ink transition-all cursor-pointer">Material Classifications</button></li>
-              <li><button onClick={() => navigateToSection('core-technologies')} className="hover:text-ink transition-all cursor-pointer">Patented Technologies</button></li>
-              <li><button onClick={() => navigateToSection('ai-styling-assistant')} className="hover:text-ink transition-all text-accent cursor-pointer">Custom Regimens</button></li>
-            </ul>
-          </div>
-
-          {/* Col 3: Industry links */}
-          <div className="space-y-4 lg:pl-12">
-            <span className="mono-tag text-[11px] text-accent block">Corporate Affiliations</span>
-            <ul className="space-y-2 text-xs text-silver">
-              <li><button onClick={() => navigateToSection('professional-markets')} className="hover:text-ink transition-all cursor-pointer">Salon Procurement</button></li>
-              <li><button onClick={() => navigateToSection('request-brochure')} className="hover:text-ink transition-all cursor-pointer">Tactile Catalog Portfolio</button></li>
-              <li><button onClick={() => navigateToSection('global-contact')} className="hover:text-ink transition-all cursor-pointer">General Agency Relations</button></li>
-              <li><a href="https://www.presto-industries.de" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-all flex items-center gap-1">Presto Industries DE <ExternalLink className="w-3 h-3 text-accent" /></a></li>
-            </ul>
-          </div>
-
-          {/* Col 4: Address / Legal */}
-          <div className="space-y-4 text-xs text-silver">
-            <span className="mono-tag text-[11px] text-accent block">Munich Headquarters</span>
-            <p>
-              Presto Industries GmbH & Co. KG<br />
-              Schleissheimer Str. 102<br />
-              80797 Munich, Germany
-            </p>
-            <p className="text-[11px] text-silver/70">
-              USt-IdNr. DE 129 444 821<br />
-              Registered District Court Munich HRA 48211
-            </p>
-          </div>
-        </div>
-
-        {/* Copyright / Legal Footer */}
-        <div className="flex flex-col md:flex-row justify-between items-center text-[11px] mono-tag text-silver/70 gap-4 relative z-30">
-          <span>
-            © {new Date().getFullYear()} PEGASUS HAIR TOOLS. UNDER LICENSE OF PRESTO INDUSTRIES GMBH.
-          </span>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-ink transition-colors">PRIVACY REGISTRY</a>
-            <a href="#" className="hover:text-ink transition-colors">TRADEMARKS</a>
-            <a href="#" className="hover:text-ink transition-colors">REGULATORY METRICS</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

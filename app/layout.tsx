@@ -1,6 +1,8 @@
 import type {Metadata} from 'next';
 import { Jost, Cormorant_Garamond } from 'next/font/google';
 import './globals.css'; // Global styles
+import SiteHeader from '@/components/SiteHeader';
+import SiteFooter from '@/components/SiteFooter';
 
 const jost = Jost({
   subsets: ['latin'],
@@ -25,7 +27,9 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en" className={`${jost.variable} ${cormorant.variable}`}>
       <body suppressHydrationWarning className="bg-white text-ink antialiased overflow-x-hidden">
+        <SiteHeader />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

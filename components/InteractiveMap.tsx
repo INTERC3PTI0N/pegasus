@@ -16,7 +16,7 @@ interface MarketLocation {
 }
 
 export default function InteractiveMap() {
-  const [activeLoc, setActiveLoc] = useState<string>('paris');
+  const [activeLoc, setActiveLoc] = useState<string>('mumbai');
   const [enquiryType, setEnquiryType] = useState<'dealer' | 'business'>('dealer');
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [enquiryForm, setEnquiryForm] = useState({
@@ -67,15 +67,15 @@ export default function InteractiveMap() {
       coords: { x: 82, y: 44 },
       details: 'Connecting elite Japanese hairdressers with German precision engineering.'
     },
-    munich: {
-      id: 'munich',
-      name: 'Munich',
-      role: 'Engineering Labs & Presto Industries HQ',
-      address: 'Schleissheimer Str. 102, 80797 Munich, Germany',
-      phone: '+49 89 244160-0',
-      email: 'engineering@presto-industries.de',
-      coords: { x: 50.5, y: 37 },
-      details: 'Where our 60-year manufacturing legacy and FLEXINITE material research resides.'
+    mumbai: {
+      id: 'mumbai',
+      name: 'Mumbai',
+      role: 'Presto Industries Headquarters & Works',
+      address: '215/216, Vasan Udyog Bhavan, 2nd Floor, Senapati Bapat Marg, opp. Phoenix Mill, Lower Parel, Mumbai, Maharashtra 400013',
+      phone: '+91 22431 51400',
+      email: 'info@pegasushairtools.com',
+      coords: { x: 66, y: 52 },
+      details: 'Where our six-decade manufacturing legacy and FLEXINITE material research resides.'
     }
   };
 

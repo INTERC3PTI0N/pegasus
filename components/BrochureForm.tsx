@@ -89,7 +89,7 @@ export default function BrochureForm() {
               The Art of Frictionless Control
             </h4>
             <p className="font-sans text-xs text-silver leading-relaxed max-w-xs">
-              Printed in Heidelberg, Germany on matte eco-linen tactile paper. Featuring high-resolution technical diagrams of FLEXINITE combs.
+              Printed on matte eco-linen tactile paper. Featuring high-resolution technical diagrams of FLEXINITE, GLAMLOCK and STATICBLOCK combs.
             </p>
           </div>
 
