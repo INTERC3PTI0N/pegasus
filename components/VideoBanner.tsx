@@ -14,7 +14,7 @@ export default function VideoBanner() {
   return (
     <section
       id="film-banner"
-      className="relative w-full h-[70vh] min-h-[440px] overflow-hidden bg-ink"
+      className="relative z-30 w-full h-[70vh] min-h-[440px] overflow-hidden bg-ink"
     >
       <video
         className="absolute inset-0 w-full h-full object-cover"
