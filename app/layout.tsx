@@ -1,16 +1,18 @@
 import type {Metadata} from 'next';
-import { Inter, Space_Grotesk } from 'next/font/google';
+import { Jost, Cormorant_Garamond } from 'next/font/google';
 import './globals.css'; // Global styles
 
-const inter = Inter({
+const jost = Jost({
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-jost',
   display: 'swap',
 });
 
-const spaceGrotesk = Space_Grotesk({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  variable: '--font-editorial',
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-cormorant',
   display: 'swap',
 });
 
@@ -21,8 +23,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body suppressHydrationWarning className="bg-black text-white antialiased overflow-x-hidden">
+    <html lang="en" className={`${jost.variable} ${cormorant.variable}`}>
+      <body suppressHydrationWarning className="bg-white text-ink antialiased overflow-x-hidden">
         {children}
       </body>
     </html>

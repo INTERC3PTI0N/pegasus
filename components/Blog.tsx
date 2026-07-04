@@ -103,10 +103,10 @@ During combing, as friction builds, the carbon fibers immediately capture the fr
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-16" id="editorial-blog">
       <div className="text-center mb-12">
-        <span className="mono-tag text-xs text-gold border-b border-gold/30 pb-2 mb-4 inline-block">
+        <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-4 inline-block">
           MAGAZINE & PERSPECTIVES
         </span>
-        <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-white font-medium mb-4">
+        <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-ink font-medium mb-4">
           The Pegasus Chronicle
         </h2>
         <p className="text-silver max-w-xl mx-auto text-sm md:text-base leading-relaxed">
@@ -115,17 +115,17 @@ During combing, as friction builds, the carbon fibers immediately capture the fr
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col md:flex-row gap-4 justify-between items-center border-b border-white/5 pb-8 mb-10">
+      <div className="flex flex-col md:flex-row gap-4 justify-between items-center border-b border-black/5 pb-8 mb-10">
         {/* Categories */}
         <div className="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 scrollbar-none">
           {['all', 'technology', 'history', 'trichology'].map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded text-[11px] font-mono uppercase tracking-widest transition-all ${
+              className={`px-4 py-2 rounded text-xs font-mono uppercase tracking-widest transition-all ${
                 activeCategory === cat
-                  ? 'bg-white text-black font-medium'
-                  : 'bg-white/5 border border-white/5 text-silver hover:text-white'
+                  ? 'bg-ink text-paper font-medium'
+                  : 'bg-black/[0.04] border border-black/5 text-silver hover:text-ink'
               }`}
             >
               {cat}
@@ -142,7 +142,7 @@ During combing, as friction builds, the carbon fibers immediately capture the fr
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-9 pr-4 py-2.5 custom-input rounded text-xs"
           />
-          <Search className="w-4 h-4 text-white/30 absolute left-3 top-3" />
+          <Search className="w-4 h-4 text-ink/30 absolute left-3 top-3" />
         </div>
       </div>
 
@@ -153,7 +153,7 @@ During combing, as friction builds, the carbon fibers immediately capture the fr
             key={art.id}
             layoutId={`article-${art.id}`}
             onClick={() => setSelectedArticle(art)}
-            className="bg-charcoal border border-white/5 rounded-lg overflow-hidden group cursor-pointer hover:border-gold/30 transition-all duration-300 flex flex-col justify-between"
+            className="bg-white border border-black/5 rounded-lg overflow-hidden group cursor-pointer hover:border-accent/30 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               {/* Image Header */}
@@ -164,20 +164,20 @@ During combing, as friction builds, the carbon fibers immediately capture the fr
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700"
                 />
-                <div className="absolute top-4 left-4 bg-black/80 border border-white/10 px-3 py-1 rounded text-[9px] font-mono text-gold uppercase tracking-widest">
+                <div className="absolute top-4 left-4 bg-ink/90 border border-black/10 px-3 py-1 rounded text-[11px] font-mono text-accent uppercase tracking-widest">
                   {art.category}
                 </div>
               </div>
 
               {/* Text content */}
               <div className="p-6 md:p-8">
-                <div className="flex gap-4 items-center text-[10px] font-mono text-silver mb-3">
-                  <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5 text-gold" /> {art.readTime}</span>
+                <div className="flex gap-4 items-center text-[11px] font-mono text-silver mb-3">
+                  <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5 text-accent" /> {art.readTime}</span>
                   <span>•</span>
                   <span>{art.date}</span>
                 </div>
                 
-                <h3 className="font-sans text-lg md:text-xl text-white font-medium mb-3 group-hover:text-gold transition-colors leading-snug">
+                <h3 className="font-sans text-lg md:text-xl text-ink font-medium mb-3 group-hover:text-accent transition-colors leading-snug">
                   {art.title}
                 </h3>
                 
@@ -188,11 +188,11 @@ During combing, as friction builds, the carbon fibers immediately capture the fr
             </div>
 
             {/* Read more footer link */}
-            <div className="px-6 md:px-8 pb-6 border-t border-white/5 pt-4 flex justify-between items-center">
-              <span className="font-mono text-[9px] text-white uppercase tracking-widest">
+            <div className="px-6 md:px-8 pb-6 border-t border-black/5 pt-4 flex justify-between items-center">
+              <span className="font-mono text-[11px] text-ink uppercase tracking-widest">
                 By {art.author}
               </span>
-              <span className="flex items-center gap-1 text-[10px] font-mono text-gold group-hover:underline">
+              <span className="flex items-center gap-1 text-[11px] font-mono text-accent group-hover:underline">
                 Read Chronicle <ArrowUpRight className="w-3.5 h-3.5" />
               </span>
             </div>
@@ -213,23 +213,23 @@ During combing, as friction builds, the carbon fibers immediately capture the fr
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto"
+            className="fixed inset-0 bg-white/80 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto"
           >
             <motion.div
               layoutId={`article-${selectedArticle.id}`}
-              className="bg-charcoal border border-white/10 max-w-4xl w-full rounded-lg overflow-hidden my-8 max-h-[90vh] flex flex-col"
+              className="bg-white border border-black/10 max-w-4xl w-full rounded-lg overflow-hidden my-8 max-h-[90vh] flex flex-col"
             >
               {/* Header */}
-              <div className="p-6 border-b border-white/5 flex justify-between items-center bg-black/30">
+              <div className="p-6 border-b border-black/5 flex justify-between items-center bg-white/70">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-[10px] text-gold uppercase tracking-widest border border-gold/30 px-2.5 py-1 rounded">
+                  <span className="font-mono text-[11px] text-accent uppercase tracking-widest border border-accent/30 px-2.5 py-1 rounded">
                     {selectedArticle.category}
                   </span>
                   <span className="font-mono text-xs text-silver">{selectedArticle.date}</span>
                 </div>
                 <button
                   onClick={() => setSelectedArticle(null)}
-                  className="p-1.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all"
+                  className="p-1.5 rounded-full bg-black/[0.04] hover:bg-black/5 text-ink transition-all"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -238,17 +238,17 @@ During combing, as friction builds, the carbon fibers immediately capture the fr
               {/* Scrollable Content */}
               <div className="overflow-y-auto p-8 md:p-12 space-y-8">
                 {/* Author Info */}
-                <div className="flex items-center gap-4 border-b border-white/5 pb-6">
+                <div className="flex items-center gap-4 border-b border-black/5 pb-6">
                   <div>
-                    <h5 className="font-sans text-sm text-white font-medium">{selectedArticle.author}</h5>
+                    <h5 className="font-sans text-sm text-ink font-medium">{selectedArticle.author}</h5>
                     <p className="font-sans text-xs text-silver">{selectedArticle.authorRole}</p>
                   </div>
-                  <div className="ml-auto flex items-center gap-1.5 text-xs font-mono text-gold">
+                  <div className="ml-auto flex items-center gap-1.5 text-xs font-mono text-accent">
                     <Clock className="w-4 h-4" /> {selectedArticle.readTime}
                   </div>
                 </div>
 
-                <h1 className="editorial-text text-3xl md:text-4xl lg:text-5xl text-white font-medium leading-tight">
+                <h1 className="editorial-text text-3xl md:text-4xl lg:text-5xl text-ink font-medium leading-tight">
                   {selectedArticle.title}
                 </h1>
 
@@ -257,7 +257,7 @@ During combing, as friction builds, the carbon fibers immediately capture the fr
                   {selectedArticle.content.split('\n\n').map((paragraph, index) => {
                     if (paragraph.startsWith('####')) {
                       return (
-                        <h4 key={index} className="editorial-text text-xl md:text-2xl text-white font-medium pt-4">
+                        <h4 key={index} className="editorial-text text-xl md:text-2xl text-ink font-medium pt-4">
                           {paragraph.replace('####', '').trim()}
                         </h4>
                       );
@@ -268,10 +268,10 @@ During combing, as friction builds, the carbon fibers immediately capture the fr
               </div>
 
               {/* Close Footer */}
-              <div className="p-6 border-t border-white/5 flex justify-end bg-black/20">
+              <div className="p-6 border-t border-black/5 flex justify-end bg-white/60">
                 <button
                   onClick={() => setSelectedArticle(null)}
-                  className="px-6 py-2.5 bg-white text-black hover:bg-gold transition-colors text-xs font-mono uppercase tracking-widest rounded"
+                  className="px-6 py-2.5 bg-ink text-paper hover:bg-accent hover:text-paper transition-colors text-xs font-mono uppercase tracking-widest rounded"
                 >
                   Close Chronicle
                 </button>

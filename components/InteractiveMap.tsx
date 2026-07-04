@@ -95,10 +95,10 @@ export default function InteractiveMap() {
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-16" id="global-contact">
       <div className="text-center mb-12">
-        <span className="mono-tag text-xs text-gold border-b border-gold/30 pb-2 mb-4 inline-block">
+        <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-4 inline-block">
           GLOBAL PRESENCE
         </span>
-        <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-white font-medium mb-4">
+        <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-ink font-medium mb-4">
           Dealer & Corporate Enquiries
         </h2>
         <p className="text-silver max-w-xl mx-auto text-sm md:text-base leading-relaxed">
@@ -108,11 +108,11 @@ export default function InteractiveMap() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         {/* Left: Global Interactive Map */}
-        <div className="lg:col-span-7 bg-charcoal border border-white/5 rounded-lg p-6 flex flex-col justify-between relative overflow-hidden min-h-[400px]">
+        <div className="lg:col-span-7 bg-white border border-black/5 rounded-lg p-6 flex flex-col justify-between relative overflow-hidden min-h-[400px]">
           {/* Map Grid and Abstract background */}
           <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
             {/* Minimal World outline SVG or geometric matrix representation */}
-            <svg viewBox="0 0 1000 500" className="w-full h-full stroke-white/20 fill-none stroke-[0.5]">
+            <svg viewBox="0 0 1000 500" className="w-full h-full stroke-black/20 fill-none stroke-[0.5]">
               {/* Abstract longitude/latitude lines */}
               <line x1="0" y1="100" x2="1000" y2="100" />
               <line x1="0" y1="200" x2="1000" y2="200" />
@@ -131,13 +131,13 @@ export default function InteractiveMap() {
           </div>
 
           <div className="relative z-10">
-            <span className="mono-tag text-[10px] text-gold tracking-widest block mb-4">
+            <span className="mono-tag text-[11px] text-accent tracking-widest block mb-4">
               interactive network terminals
             </span>
           </div>
 
           {/* Interactive Plot Area */}
-          <div className="relative w-full h-64 md:h-80 border border-white/5 bg-black/40 rounded overflow-hidden z-10 mb-6">
+          <div className="relative w-full h-64 md:h-80 border border-black/5 bg-white rounded overflow-hidden z-10 mb-6">
             {/* Location Hotspots */}
             {Object.values(locations).map((loc) => (
               <button
@@ -147,67 +147,67 @@ export default function InteractiveMap() {
                 className="absolute -translate-x-1/2 -translate-y-1/2 group focus:outline-none cursor-pointer"
               >
                 {/* Outer pulsing gold halo */}
-                <span className={`absolute -inset-2.5 rounded-full border border-gold/40 scale-75 group-hover:scale-110 transition-all duration-300 ${activeLoc === loc.id ? 'animate-ping' : ''}`} />
+                <span className={`absolute -inset-2.5 rounded-full border border-accent/40 scale-75 group-hover:scale-110 transition-all duration-300 ${activeLoc === loc.id ? 'animate-ping' : ''}`} />
                 {/* Core dot */}
-                <span className={`relative block w-3.5 h-3.5 rounded-full border border-white transition-all duration-300 ${activeLoc === loc.id ? 'bg-gold' : 'bg-black/80'}`} />
+                <span className={`relative block w-3.5 h-3.5 rounded-full border border-black transition-all duration-300 ${activeLoc === loc.id ? 'bg-accent' : 'bg-ink/90'}`} />
                 {/* Tooltip on hover */}
-                <span className="absolute left-1/2 -translate-x-1/2 bottom-5 bg-charcoal border border-white/10 px-2 py-1 rounded text-[9px] font-mono uppercase tracking-wider text-white opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap">
+                <span className="absolute left-1/2 -translate-x-1/2 bottom-5 bg-white border border-black/10 px-2 py-1 rounded text-[11px] font-mono uppercase tracking-wider text-ink opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap">
                   {loc.name}
                 </span>
               </button>
             ))}
 
-            <div className="absolute bottom-4 left-4 bg-black/80 border border-white/10 p-4 rounded max-w-xs">
-              <span className="font-mono text-[8px] text-gold uppercase tracking-wider block mb-1">active coordinate</span>
-              <h4 className="font-sans text-xs text-white font-medium">
+            <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur border border-black/10 p-4 rounded max-w-xs">
+              <span className="font-mono text-[10px] text-accent uppercase tracking-wider block mb-1">active coordinate</span>
+              <h4 className="font-sans text-xs text-ink font-medium">
                 {locations[activeLoc].name} Terminal Map
               </h4>
-              <p className="font-sans text-[10px] text-silver mt-1 leading-normal">
+              <p className="font-sans text-[11px] text-silver mt-1 leading-normal">
                 {locations[activeLoc].details}
               </p>
             </div>
           </div>
 
           {/* Location details card */}
-          <div className="relative z-10 border-t border-white/10 pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="relative z-10 border-t border-black/10 pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <h4 className="font-sans text-xs text-white font-medium mb-1">{locations[activeLoc].role}</h4>
-              <p className="font-sans text-[11px] text-silver leading-relaxed flex items-start gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" />
+              <h4 className="font-sans text-xs text-ink font-medium mb-1">{locations[activeLoc].role}</h4>
+              <p className="font-sans text-xs text-silver leading-relaxed flex items-start gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-accent shrink-0 mt-0.5" />
                 {locations[activeLoc].address}
               </p>
             </div>
-            <div className="space-y-1 sm:pl-4 border-l border-white/5">
-              <a href={`tel:${locations[activeLoc].phone}`} className="font-sans text-[11px] text-silver hover:text-white flex items-center gap-1.5">
-                <Phone className="w-3.5 h-3.5 text-gold" /> {locations[activeLoc].phone}
+            <div className="space-y-1 sm:pl-4 border-l border-black/5">
+              <a href={`tel:${locations[activeLoc].phone}`} className="font-sans text-xs text-silver hover:text-ink flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-accent" /> {locations[activeLoc].phone}
               </a>
-              <a href={`mailto:${locations[activeLoc].email}`} className="font-sans text-[11px] text-silver hover:text-white flex items-center gap-1.5 break-all">
-                <Mail className="w-3.5 h-3.5 text-gold" /> {locations[activeLoc].email}
+              <a href={`mailto:${locations[activeLoc].email}`} className="font-sans text-xs text-silver hover:text-ink flex items-center gap-1.5 break-all">
+                <Mail className="w-3.5 h-3.5 text-accent" /> {locations[activeLoc].email}
               </a>
             </div>
           </div>
         </div>
 
         {/* Right: Dealer / Business Enquiry Form */}
-        <div className="lg:col-span-5 bg-charcoal border border-white/5 p-8 rounded-lg flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-white border border-black/5 p-8 rounded-lg flex flex-col justify-between">
           <div>
-            <div className="flex gap-2 border-b border-white/10 pb-4 mb-6">
+            <div className="flex gap-2 border-b border-black/10 pb-4 mb-6">
               <button
                 onClick={() => setEnquiryType('dealer')}
-                className={`flex-1 py-2 text-center text-[10px] font-mono uppercase tracking-widest border transition-all ${
+                className={`flex-1 py-2 text-center text-[11px] font-mono uppercase tracking-widest border transition-all ${
                   enquiryType === 'dealer'
-                    ? 'border-gold text-white bg-white/5'
-                    : 'border-transparent text-silver hover:text-white'
+                    ? 'border-accent text-ink bg-black/[0.04]'
+                    : 'border-transparent text-silver hover:text-ink'
                 }`}
               >
                 Dealer Enquiry
               </button>
               <button
                 onClick={() => setEnquiryType('business')}
-                className={`flex-1 py-2 text-center text-[10px] font-mono uppercase tracking-widest border transition-all ${
+                className={`flex-1 py-2 text-center text-[11px] font-mono uppercase tracking-widest border transition-all ${
                   enquiryType === 'business'
-                    ? 'border-gold text-white bg-white/5'
-                    : 'border-transparent text-silver hover:text-white'
+                    ? 'border-accent text-ink bg-black/[0.04]'
+                    : 'border-transparent text-silver hover:text-ink'
                 }`}
               >
                 Business Enquiry
@@ -222,7 +222,7 @@ export default function InteractiveMap() {
 
             <form onSubmit={handleFormSubmit} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="font-sans text-[10px] text-silver uppercase">Company / Salon Name</label>
+                <label className="font-sans text-[11px] text-silver uppercase">Company / Salon Name</label>
                 <input
                   type="text"
                   name="businessName"
@@ -235,7 +235,7 @@ export default function InteractiveMap() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="font-sans text-[10px] text-silver uppercase">Primary Contact Person</label>
+                <label className="font-sans text-[11px] text-silver uppercase">Primary Contact Person</label>
                 <input
                   type="text"
                   name="contactName"
@@ -248,7 +248,7 @@ export default function InteractiveMap() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="font-sans text-[10px] text-silver uppercase">Corporate Email</label>
+                <label className="font-sans text-[11px] text-silver uppercase">Corporate Email</label>
                 <input
                   type="email"
                   name="email"
@@ -261,7 +261,7 @@ export default function InteractiveMap() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="font-sans text-[10px] text-silver uppercase">Enquiry Specifications</label>
+                <label className="font-sans text-[11px] text-silver uppercase">Enquiry Specifications</label>
                 <textarea
                   name="message"
                   required
@@ -277,14 +277,14 @@ export default function InteractiveMap() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-gold/10 border border-gold p-4 rounded text-center text-xs font-sans text-white flex items-center justify-center gap-2"
+                  className="bg-accent/10 border border-accent p-4 rounded text-center text-xs font-sans text-ink flex items-center justify-center gap-2"
                 >
-                  <Check className="w-4 h-4 text-gold" /> Enquiry Transmitted. We will reply within 24 Hours.
+                  <Check className="w-4 h-4 text-accent" /> Enquiry Transmitted. We will reply within 24 Hours.
                 </motion.div>
               ) : (
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-white text-black hover:bg-gold transition-colors font-mono text-xs uppercase tracking-widest rounded flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-3.5 bg-ink text-paper hover:bg-accent hover:text-paper transition-colors font-mono text-xs uppercase tracking-widest rounded flex items-center justify-center gap-2 cursor-pointer"
                 >
                   Transmit Message <Send className="w-3.5 h-3.5" />
                 </button>

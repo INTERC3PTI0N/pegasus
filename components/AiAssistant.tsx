@@ -94,10 +94,10 @@ export default function AiAssistant() {
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-16 relative" id="ai-styling-assistant">
       <div className="text-center mb-12">
-        <span className="mono-tag text-xs text-gold border-b border-gold/30 pb-2 mb-4 inline-block">
+        <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-4 inline-block">
           ENGINEERING INTELLIGENCE
         </span>
-        <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-white font-medium mb-4">
+        <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-ink font-medium mb-4">
           Bespoke Styling Protocol
         </h2>
         <p className="text-silver max-w-xl mx-auto text-sm md:text-base leading-relaxed">
@@ -112,13 +112,13 @@ export default function AiAssistant() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
-            className="bg-charcoal border border-white/5 p-8 md:p-12 rounded-lg relative overflow-hidden"
+            className="bg-white border border-black/5 p-8 md:p-12 rounded-lg relative overflow-hidden"
           >
             {/* Step 1: Hair Type */}
             <div className="mb-10">
               <div className="flex items-center gap-3 mb-6">
-                <span className="font-mono text-xs text-gold border border-gold/30 rounded-full w-6 h-6 flex items-center justify-center">01</span>
-                <h3 className="font-sans text-lg text-white font-medium">Select Your Hair Topology</h3>
+                <span className="font-mono text-xs text-accent border border-accent/30 rounded-full w-6 h-6 flex items-center justify-center">01</span>
+                <h3 className="font-sans text-lg text-ink font-medium">Select Your Hair Topology</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {hairTypeOptions.map((opt) => (
@@ -127,11 +127,11 @@ export default function AiAssistant() {
                     onClick={() => setHairType(opt.value)}
                     className={`text-left p-5 rounded border transition-all duration-300 ${
                       hairType === opt.value
-                        ? 'bg-white/5 border-gold shadow-[0_0_15px_rgba(197,168,128,0.1)]'
-                        : 'bg-black/20 border-white/5 hover:border-white/20'
+                        ? 'bg-black/[0.04] border-accent shadow-[0_0_15px_rgba(0,173,187,0.1)]'
+                        : 'bg-white/60 border-black/5 hover:border-black/20'
                     }`}
                   >
-                    <div className="font-sans font-medium text-sm text-white mb-1">{opt.label}</div>
+                    <div className="font-sans font-medium text-sm text-ink mb-1">{opt.label}</div>
                     <div className="font-sans text-xs text-silver leading-relaxed">{opt.desc}</div>
                   </button>
                 ))}
@@ -141,8 +141,8 @@ export default function AiAssistant() {
             {/* Step 2: Goal */}
             <div className="mb-10">
               <div className="flex items-center gap-3 mb-6">
-                <span className="font-mono text-xs text-gold border border-gold/30 rounded-full w-6 h-6 flex items-center justify-center">02</span>
-                <h3 className="font-sans text-lg text-white font-medium">Define Your Styling Objective</h3>
+                <span className="font-mono text-xs text-accent border border-accent/30 rounded-full w-6 h-6 flex items-center justify-center">02</span>
+                <h3 className="font-sans text-lg text-ink font-medium">Define Your Styling Objective</h3>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
                 {goalOptions.map((opt) => {
@@ -153,12 +153,12 @@ export default function AiAssistant() {
                       onClick={() => setStylingGoal(opt.value)}
                       className={`flex flex-col items-center text-center p-5 rounded border transition-all duration-300 ${
                         stylingGoal === opt.value
-                          ? 'bg-white/5 border-gold shadow-[0_0_15px_rgba(197,168,128,0.1)]'
-                          : 'bg-black/20 border-white/5 hover:border-white/20'
+                          ? 'bg-black/[0.04] border-accent shadow-[0_0_15px_rgba(0,173,187,0.1)]'
+                          : 'bg-white/60 border-black/5 hover:border-black/20'
                       }`}
                     >
-                      <Icon className={`w-5 h-5 mb-3 ${stylingGoal === opt.value ? 'text-gold' : 'text-silver'}`} />
-                      <div className="font-sans font-medium text-xs text-white leading-snug">{opt.label}</div>
+                      <Icon className={`w-5 h-5 mb-3 ${stylingGoal === opt.value ? 'text-accent' : 'text-silver'}`} />
+                      <div className="font-sans font-medium text-xs text-ink leading-snug">{opt.label}</div>
                     </button>
                   );
                 })}
@@ -168,8 +168,8 @@ export default function AiAssistant() {
             {/* Step 3: Intensity */}
             <div className="mb-10">
               <div className="flex items-center gap-3 mb-6">
-                <span className="font-mono text-xs text-gold border border-gold/30 rounded-full w-6 h-6 flex items-center justify-center">03</span>
-                <h3 className="font-sans text-lg text-white font-medium">Select Ritual Intensity</h3>
+                <span className="font-mono text-xs text-accent border border-accent/30 rounded-full w-6 h-6 flex items-center justify-center">03</span>
+                <h3 className="font-sans text-lg text-ink font-medium">Select Ritual Intensity</h3>
               </div>
               <div className="flex gap-4">
                 {['minimal', 'moderate', ' pampering'].map((level) => (
@@ -178,8 +178,8 @@ export default function AiAssistant() {
                     onClick={() => setCurrentRoutine(level)}
                     className={`flex-1 py-3 text-center rounded border text-xs uppercase tracking-widest font-mono transition-all duration-300 ${
                       currentRoutine === level
-                        ? 'bg-white/5 border-gold text-white'
-                        : 'bg-black/20 border-white/5 text-silver hover:border-white/25'
+                        ? 'bg-black/[0.04] border-accent text-ink'
+                        : 'bg-white/60 border-black/5 text-silver hover:border-black/25'
                     }`}
                   >
                     {level === 'minimal' ? 'Efficient Care' : level === 'moderate' ? 'Standard Protocol' : 'Luxury Pampering'}
@@ -194,8 +194,8 @@ export default function AiAssistant() {
                 onClick={handleGenerate}
                 className={`flex items-center gap-2 px-8 py-4 rounded text-xs font-mono tracking-widest uppercase transition-all duration-300 ${
                   hairType && stylingGoal
-                    ? 'bg-white text-black hover:bg-gold hover:text-black cursor-pointer'
-                    : 'bg-white/10 text-white/30 cursor-not-allowed'
+                    ? 'bg-ink text-paper hover:bg-accent hover:text-paper cursor-pointer'
+                    : 'bg-black/5 text-ink/30 cursor-not-allowed'
                 }`}
               >
                 Generate Protocol <ArrowRight className="w-4 h-4" />
@@ -210,12 +210,12 @@ export default function AiAssistant() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="bg-charcoal border border-white/5 p-16 rounded-lg text-center flex flex-col items-center justify-center min-h-[450px]"
+            className="bg-white border border-black/5 p-16 rounded-lg text-center flex flex-col items-center justify-center min-h-[450px]"
           >
             <div className="relative w-16 h-16 mb-8">
               {/* Spinning Chrome circle */}
-              <div className="absolute inset-0 border-t-2 border-r-2 border-gold rounded-full animate-spin"></div>
-              <div className="absolute inset-2 border-b-2 border-white/10 rounded-full animate-pulse"></div>
+              <div className="absolute inset-0 border-t-2 border-r-2 border-accent rounded-full animate-spin"></div>
+              <div className="absolute inset-2 border-b-2 border-black/10 rounded-full animate-pulse"></div>
             </div>
             
             <AnimatePresence mode="wait">
@@ -225,7 +225,7 @@ export default function AiAssistant() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className="font-mono text-xs uppercase text-gold tracking-widest mb-2"
+                className="font-mono text-xs uppercase text-accent tracking-widest mb-2"
               >
                 {loadingMessages[loadingStep]}
               </motion.div>
@@ -242,19 +242,19 @@ export default function AiAssistant() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            className="bg-charcoal border border-white/5 p-8 md:p-12 rounded-lg relative"
+            className="bg-white border border-black/5 p-8 md:p-12 rounded-lg relative"
           >
             {/* Top Bar with resetting option */}
-            <div className="flex justify-between items-start border-b border-white/10 pb-6 mb-8">
+            <div className="flex justify-between items-start border-b border-black/10 pb-6 mb-8">
               <div>
-                <span className="mono-tag text-[10px] text-gold tracking-widest block mb-1">bespoke formulation</span>
-                <h3 className="editorial-text text-2xl md:text-3xl lg:text-4xl text-white font-medium">
+                <span className="mono-tag text-[11px] text-accent tracking-widest block mb-1">bespoke formulation</span>
+                <h3 className="editorial-text text-2xl md:text-3xl lg:text-4xl text-ink font-medium">
                   {routine.routineTitle}
                 </h3>
               </div>
               <button
                 onClick={resetForm}
-                className="flex items-center gap-2 border border-white/10 hover:border-gold/30 px-4 py-2 rounded text-[10px] font-mono uppercase tracking-widest text-silver hover:text-white transition-all duration-300"
+                className="flex items-center gap-2 border border-black/10 hover:border-accent/30 px-4 py-2 rounded text-[11px] font-mono uppercase tracking-widest text-silver hover:text-ink transition-all duration-300"
               >
                 <RefreshCw className="w-3 h-3" /> Reconfigure
               </button>
@@ -263,33 +263,33 @@ export default function AiAssistant() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Left Column: Hair Analysis & Product Spotlight */}
               <div className="lg:col-span-1 space-y-8">
-                <div className="bg-black/40 border border-white/5 p-6 rounded">
-                  <h4 className="font-mono text-[10px] text-gold tracking-widest uppercase mb-3">Expert Analysis</h4>
+                <div className="bg-white border border-black/5 p-6 rounded">
+                  <h4 className="font-mono text-[11px] text-accent tracking-widest uppercase mb-3">Expert Analysis</h4>
                   <p className="font-sans text-xs text-silver leading-relaxed">
                     {routine.hairAnalysis}
                   </p>
                 </div>
 
-                <div className="bg-black/60 border border-gold/20 p-6 rounded relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 bg-gold text-black font-mono text-[8px] uppercase tracking-widest px-2.5 py-1 rounded-bl">
+                <div className="bg-white border border-accent/20 p-6 rounded relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 bg-accent text-paper font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-bl">
                     Spotlight Tool
                   </div>
-                  <h4 className="font-sans text-sm text-white font-medium mb-1">
+                  <h4 className="font-sans text-sm text-ink font-medium mb-1">
                     {routine.pegasusToolRecommendation.name}
                   </h4>
-                  <span className="font-mono text-[9px] text-gold uppercase tracking-wider block mb-4">
+                  <span className="font-mono text-[11px] text-accent uppercase tracking-wider block mb-4">
                     {routine.pegasusToolRecommendation.collection}
                   </span>
                   
                   <div className="space-y-4 mb-4">
                     <div>
-                      <span className="font-mono text-[8px] text-silver uppercase block mb-1">Integrated Technology</span>
-                      <span className="font-sans text-xs text-white font-medium flex items-center gap-1.5">
-                        <CheckCircle className="w-3.5 h-3.5 text-gold" /> {routine.pegasusToolRecommendation.techUsed}
+                      <span className="font-mono text-[10px] text-silver uppercase block mb-1">Integrated Technology</span>
+                      <span className="font-sans text-xs text-ink font-medium flex items-center gap-1.5">
+                        <CheckCircle className="w-3.5 h-3.5 text-accent" /> {routine.pegasusToolRecommendation.techUsed}
                       </span>
                     </div>
                     <div>
-                      <span className="font-mono text-[8px] text-silver uppercase block mb-1">Scientific Efficacy</span>
+                      <span className="font-mono text-[10px] text-silver uppercase block mb-1">Scientific Efficacy</span>
                       <p className="font-sans text-xs text-silver leading-relaxed">
                         {routine.pegasusToolRecommendation.whyItWorks}
                       </p>
@@ -302,13 +302,13 @@ export default function AiAssistant() {
               <div className="lg:col-span-2 space-y-8">
                 {/* Morning Steps */}
                 <div>
-                  <h4 className="font-mono text-[10px] text-gold tracking-widest uppercase mb-4 border-b border-white/5 pb-2">
+                  <h4 className="font-mono text-[11px] text-accent tracking-widest uppercase mb-4 border-b border-black/5 pb-2">
                     AM: Active Styling Protocol
                   </h4>
                   <div className="space-y-4">
                     {routine.morningRitualSteps.map((step, idx) => (
                       <div key={idx} className="flex gap-4">
-                        <span className="font-mono text-xs text-white/30 pt-0.5">0{idx + 1}</span>
+                        <span className="font-mono text-xs text-ink/30 pt-0.5">0{idx + 1}</span>
                         <p className="font-sans text-xs text-silver leading-relaxed">
                           {step}
                         </p>
@@ -319,13 +319,13 @@ export default function AiAssistant() {
 
                 {/* Evening Steps */}
                 <div>
-                  <h4 className="font-mono text-[10px] text-gold tracking-widest uppercase mb-4 border-b border-white/5 pb-2">
+                  <h4 className="font-mono text-[11px] text-accent tracking-widest uppercase mb-4 border-b border-black/5 pb-2">
                     PM: Follicular Regeneration Protocol
                   </h4>
                   <div className="space-y-4">
                     {routine.eveningRitualSteps.map((step, idx) => (
                       <div key={idx} className="flex gap-4">
-                        <span className="font-mono text-xs text-white/30 pt-0.5">0{idx + 1}</span>
+                        <span className="font-mono text-xs text-ink/30 pt-0.5">0{idx + 1}</span>
                         <p className="font-sans text-xs text-silver leading-relaxed">
                           {step}
                         </p>
@@ -335,11 +335,11 @@ export default function AiAssistant() {
                 </div>
 
                 {/* Expert tip */}
-                <div className="bg-gold/5 border-l-2 border-gold p-5">
-                  <span className="font-mono text-[9px] text-gold tracking-widest uppercase block mb-1">
+                <div className="bg-accent/5 border-l-2 border-accent p-5">
+                  <span className="font-mono text-[11px] text-accent tracking-widest uppercase block mb-1">
                     Session Stylist Master Secret
                   </span>
-                  <p className="font-sans text-xs text-white italic leading-relaxed">
+                  <p className="font-sans text-xs text-ink italic leading-relaxed">
                     &ldquo;{routine.professionalStylingTip}&rdquo;
                   </p>
                 </div>
@@ -350,7 +350,7 @@ export default function AiAssistant() {
       </AnimatePresence>
 
       {error && (
-        <div className="mt-6 bg-red-950/20 border border-red-900/40 p-4 rounded text-center text-xs font-mono text-red-200">
+        <div className="mt-6 bg-red-50 border border-red-200 p-4 rounded text-center text-xs font-mono text-red-600">
           {error}
         </div>
       )}

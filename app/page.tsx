@@ -5,22 +5,17 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   Menu,
   X,
-  Compass,
   ArrowRight,
-  Shield,
-  Clock,
-  Sparkles,
-  Layers,
   ChevronRight,
-  ChevronDown,
   Globe,
   User,
   Scissors,
   ExternalLink
 } from 'lucide-react';
 
-// Import our luxury components
-import PegasusComb from '@/components/PegasusComb';
+// Luxury components
+import FloatingComb from '@/components/FloatingComb';
+import BannerSlider from '@/components/BannerSlider';
 import AiAssistant from '@/components/AiAssistant';
 import BrochureForm from '@/components/BrochureForm';
 import Blog from '@/components/Blog';
@@ -33,8 +28,6 @@ export default function Home() {
 
   // Active View and Interaction States
   const [activeSection, setActiveSection] = useState('hero');
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const [selectedTech, setSelectedTech] = useState<'glamlock' | 'flexinite' | 'staticblock'>('flexinite');
   const [activeCollection, setActiveCollection] = useState<'rubber' | 'cellulose' | 'wood'>('rubber');
   const [activeTimelineYear, setActiveTimelineYear] = useState('1961');
@@ -58,30 +51,6 @@ export default function Home() {
     }, 120);
 
     return () => clearInterval(interval);
-  }, []);
-
-  // Handle Mouse Coordinates for Specluar Lighting and Parallax
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: e.clientX / window.innerWidth,
-        y: e.clientY / window.innerHeight,
-      });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // Simulating Scroll Parallax within view components
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? scrollY / docHeight : 0;
-      setScrollProgress(progress);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Smooth jump to sections
@@ -129,21 +98,18 @@ export default function Home() {
       materials: '100% Organic Vulcanite Rubber with Flexinite',
       description: 'Manufactured by baking organic natural rubber sheets in high-pressure steam ovens. Features high chemical resistance, rigid backbone posture, and micro-flexible tooth ends that mimic hair elasticity.',
       specifications: ['100% Organic natural rubber base', 'Infused with smart FLEXINITE elastomer', 'Virtually impervious to bleach and peroxide', 'Hand-cut diamond teeth edges'],
-      color: 'text-silver',
     },
     cellulose: {
       title: 'Cellulose Acetate',
       materials: 'Plant-based Wood Pulp & Cotton Fibers',
       description: 'Handcrafted from premium natural raw blocks. Highly tactile material that adapts instantly to body temperature. Features translucent, elegant tortoiseshell aesthetics, with glass-smooth seamless tips.',
       specifications: ['Handcrafted plant-derived sheets', 'Zero-seam organic construction', 'Static-free high density fibers', 'Luxurious tortoiseshell polish'],
-      color: 'text-amber-500',
     },
     wood: {
       title: 'Ecowood Composite',
       materials: 'Organic Wood Fiber & Bio-polymers',
       description: 'An eco-responsible premium composite combining natural beechwood fibers with high-grade organic binders. Delivers an elegant wood-grain aesthetic with exceptional water and high salon temperature resistance.',
       specifications: ['Upcycled FSC beechwood fiber composite', 'High-heat thermal threshold (230°C)', 'Lightweight ergonomic body', 'Rich biological wood grain texturing'],
-      color: 'text-gold',
     }
   };
 
@@ -204,8 +170,16 @@ export default function Home() {
     }
   ];
 
+  // Shared reveal animation for section headers
+  const reveal = {
+    initial: { opacity: 0, y: 26 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: '-80px' },
+    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as const },
+  };
+
   return (
-    <div className="relative min-h-screen bg-black text-white select-none selection:bg-gold selection:text-black">
+    <div className="relative min-h-screen bg-white text-ink select-none selection:bg-accent selection:text-white">
       {/* Cinematic grid line overlays */}
       <div className="grid-overlay">
         <div className="grid-line"></div>
@@ -217,6 +191,9 @@ export default function Home() {
       {/* Luxury noise filter overlay */}
       <div className="noise-overlay" />
 
+      {/* The comb — one object, travelling the entire site in 3D */}
+      {!loading && <FloatingComb />}
+
       {/* 1. Cinematic Preloader Experience */}
       <AnimatePresence>
         {loading && (
@@ -225,39 +202,43 @@ export default function Home() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 bg-black z-50 flex flex-col justify-between p-12 overflow-hidden"
+            className="fixed inset-0 bg-white z-50 flex flex-col justify-between p-12 overflow-hidden"
           >
             <div>
-              <span className="mono-tag text-[9px] text-gold tracking-[0.3em] block mb-2">
+              <span className="mono-tag text-[11px] text-accent tracking-[0.3em] block mb-2">
                 PRESTO INDUSTRIES — EST. 1961
               </span>
-              <h1 className="editorial-text text-xl text-white font-medium">PEGASUS</h1>
+              <h1 className="display-text text-xl text-ink font-semibold tracking-widest">PEGASUS</h1>
             </div>
 
-            {/* Rotating Comb in darkness */}
-            <div className="w-full h-80 max-w-lg mx-auto flex items-center justify-center relative">
-              <PegasusComb activeSection="preloader" scrollProgress={0} mousePos={mousePos} />
-              
-              {/* Reflected ambient light highlight simulation */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none animate-pulse" />
+            {/* Levitating comb in pure light */}
+            <div className="w-full h-80 max-w-2xl mx-auto flex items-center justify-center relative" style={{ perspective: 1200 }}>
+              <motion.img
+                src="/images/comb.png"
+                alt="Pegasus comb"
+                draggable={false}
+                animate={{ y: [0, -18, 0], rotateZ: [-3, 3, -3], rotateY: [-10, 10, -10] }}
+                transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+                className="comb-shadow w-[70%] max-w-lg"
+              />
             </div>
 
             <div className="flex flex-col md:flex-row justify-between items-end gap-6">
               <div>
-                <span className="font-mono text-xs text-gold block mb-1">INFINITE STYLING</span>
-                <span className="font-sans text-[11px] text-silver block max-w-xs leading-relaxed">
+                <span className="mono-tag text-[11px] text-accent block mb-1">INFINITE STYLING</span>
+                <span className="text-xs text-silver block max-w-xs leading-relaxed">
                   Engineering professional salon instruments through material innovation and six decades of German craftsmanship.
                 </span>
               </div>
 
               {/* Progress counter */}
               <div className="text-right">
-                <span className="font-sans text-[11px] text-silver block mb-1">Establishing reality terminals</span>
+                <span className="text-xs text-silver block mb-1">Curating the atelier</span>
                 <div className="flex items-baseline justify-end gap-2">
-                  <span className="editorial-text text-5xl md:text-6xl text-white font-light tracking-tighter">
+                  <span className="editorial-text text-5xl md:text-6xl text-ink font-light tracking-tighter">
                     {loadPercent}
                   </span>
-                  <span className="font-mono text-xs text-gold">%</span>
+                  <span className="mono-tag text-xs text-accent">%</span>
                 </div>
               </div>
             </div>
@@ -265,47 +246,47 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* 2. Premium Luxury Navigation Header */}
-      <header className="fixed top-0 left-0 w-full z-40 bg-black/40 backdrop-blur-md border-b border-white/5 py-5 px-6 md:px-12 flex justify-between items-center">
+      {/* 2. Premium Luxury Navigation Header — JUUN.J editorial style */}
+      <header className="fixed top-0 left-0 w-full z-40 bg-white/70 backdrop-blur-md border-b border-black/5 py-5 px-6 md:px-12 flex justify-between items-center">
         <div className="flex items-baseline gap-1.5 cursor-pointer" onClick={() => navigateToSection('hero')}>
-          <h1 className="editorial-text text-xl md:text-2xl text-white font-medium tracking-tight">
+          <h1 className="display-text text-lg md:text-xl text-ink font-semibold tracking-[0.18em]">
             PEGASUS
           </h1>
-          <span className="font-mono text-[8px] text-gold uppercase tracking-wider">
+          <span className="mono-tag text-[10px] text-accent uppercase">
             pro
           </span>
         </div>
 
-        {/* Desktop Links */}
-        <nav className="hidden lg:flex items-center gap-8 text-[10px] font-mono uppercase tracking-widest text-silver">
-          <button onClick={() => navigateToSection('about-timeline')} className="hover:text-white transition-all cursor-pointer">About</button>
-          <button onClick={() => navigateToSection('product-collections')} className="hover:text-white transition-all cursor-pointer">Collections</button>
-          <button onClick={() => navigateToSection('core-technologies')} className="hover:text-white transition-all cursor-pointer">Technology</button>
-          <button onClick={() => navigateToSection('ai-styling-assistant')} className="hover:text-white transition-all cursor-pointer text-gold">Bespoke Rituals</button>
-          <button onClick={() => navigateToSection('professional-markets')} className="hover:text-white transition-all cursor-pointer">Markets</button>
-          <button onClick={() => navigateToSection('editorial-blog')} className="hover:text-white transition-all cursor-pointer">Chronicles</button>
+        {/* Centered Desktop Links */}
+        <nav className="hidden lg:flex items-center gap-10 text-[13px] mono-tag text-ink/60 absolute left-1/2 -translate-x-1/2">
+          <button onClick={() => navigateToSection('about-timeline')} className="hover:text-ink transition-all cursor-pointer whitespace-nowrap">About</button>
+          <button onClick={() => navigateToSection('product-collections')} className="hover:text-ink transition-all cursor-pointer whitespace-nowrap">Collections</button>
+          <button onClick={() => navigateToSection('core-technologies')} className="hover:text-ink transition-all cursor-pointer whitespace-nowrap">Technology</button>
+          <button onClick={() => navigateToSection('ai-styling-assistant')} className="hover:text-ink transition-all cursor-pointer text-accent whitespace-nowrap">Rituals</button>
+          <button onClick={() => navigateToSection('editorial-blog')} className="hover:text-ink transition-all cursor-pointer whitespace-nowrap">Chronicles</button>
         </nav>
 
-        {/* Right CTAs */}
-        <div className="hidden lg:flex items-center gap-4">
+        {/* Right CTA — quiet, editorial */}
+        <div className="hidden lg:flex items-center gap-6">
           <button
             onClick={() => navigateToSection('request-brochure')}
-            className="border border-white/10 hover:border-gold/30 px-5 py-2.5 rounded text-[9px] font-mono uppercase tracking-widest text-silver hover:text-white transition-all bg-black/40 cursor-pointer"
+            className="mono-tag text-[13px] text-ink/60 hover:text-ink transition-all cursor-pointer"
           >
-            Request Brochure
+            Brochure
           </button>
           <button
             onClick={() => navigateToSection('global-contact')}
-            className="bg-white hover:bg-gold text-black px-5 py-2.5 rounded text-[9px] font-mono uppercase tracking-widest transition-all cursor-pointer font-medium"
+            className="group flex items-center gap-2 mono-tag text-[13px] text-ink transition-all cursor-pointer"
           >
-            Contact
+            Contact Us
+            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
 
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="lg:hidden p-2 text-white hover:text-gold transition-all"
+          className="lg:hidden p-2 text-ink hover:text-accent transition-all"
         >
           {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -318,25 +299,25 @@ export default function Home() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 top-[72px] bg-black/95 z-30 flex flex-col justify-between p-8 overflow-y-auto"
+            className="fixed inset-0 top-[72px] bg-white z-[45] flex flex-col justify-between p-8 overflow-y-auto"
           >
             <div className="space-y-6 text-center pt-8">
               {['about-timeline', 'product-collections', 'core-technologies', 'ai-styling-assistant', 'professional-markets', 'editorial-blog', 'request-brochure', 'global-contact'].map((sec) => (
                 <button
                   key={sec}
                   onClick={() => navigateToSection(sec)}
-                  className="block w-full text-lg font-sans text-silver hover:text-white py-2 uppercase tracking-wider border-b border-white/5"
+                  className="block w-full text-lg text-silver hover:text-ink py-2 uppercase tracking-[0.2em]"
                 >
-                  {sec.replace('-', ' ')}
+                  {sec.replace(/-/g, ' ')}
                 </button>
               ))}
             </div>
 
-            <div className="border-t border-white/5 pt-6 text-center space-y-4">
-              <span className="font-mono text-[9px] text-gold uppercase tracking-widest">
+            <div className="border-t border-black/5 pt-6 text-center space-y-4">
+              <span className="mono-tag text-[11px] text-accent uppercase">
                 PRESTO INDUSTRIES DEUTSCHLAND
               </span>
-              <p className="font-sans text-[11px] text-silver">
+              <p className="text-xs text-silver">
                 sixty years of precision engineering salon tools.
               </p>
             </div>
@@ -344,7 +325,7 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* 3. Infinite Scroll/Snap Navigation Dots (Sticky Right) */}
+      {/* 3. Navigation Dots (Sticky Right) */}
       <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-4">
         {['hero', 'about-timeline', 'product-collections', 'core-technologies', 'ai-styling-assistant', 'professional-markets', 'editorial-blog', 'request-brochure', 'global-contact'].map((sec) => (
           <button
@@ -352,14 +333,14 @@ export default function Home() {
             onClick={() => navigateToSection(sec)}
             className="group flex items-center justify-end gap-3 focus:outline-none"
           >
-            <span className="font-mono text-[8px] text-gold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              {sec.replace('-', ' ')}
+            <span className="mono-tag text-[10px] text-accent uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              {sec.replace(/-/g, ' ')}
             </span>
             <span
               className={`w-2 h-2 rounded-full border transition-all duration-300 ${
                 activeSection === sec
-                  ? 'bg-gold border-gold scale-125 pulse-gold'
-                  : 'bg-transparent border-white/20 group-hover:border-white'
+                  ? 'bg-accent border-accent scale-125 pulse-accent'
+                  : 'bg-transparent border-ink/20 group-hover:border-ink'
               }`}
             />
           </button>
@@ -369,118 +350,131 @@ export default function Home() {
       {/* MAIN VIEW SCROLLER */}
       <main className="relative">
 
-        {/* SECTION 1: HERO VIEW (Immersive Editorial Juun.J / Dyson look) */}
+        {/* SECTION 1: HERO — JUUN.J editorial campaign look */}
         <section
           id="hero"
           onMouseEnter={() => setActiveSection('hero')}
-          className="relative min-h-screen flex flex-col justify-between pt-28 pb-12 px-6 md:px-12 lg:px-24 overflow-hidden"
+          className="relative min-h-screen flex flex-col justify-between pt-28 pb-10 px-6 md:px-12 lg:px-20 overflow-hidden"
         >
-          {/* Layer One: Parallax Background Text */}
-          <div className="absolute inset-0 z-0 flex items-center justify-center select-none pointer-events-none">
-            <h2 className="editorial-text text-[15vw] text-white/5 font-extrabold tracking-tighter leading-none uppercase">
+          {/* Giant campaign wordmark — the comb floats over it */}
+          {/* On desktop the wordmark sits ABOVE the comb (z-25 vs z-20) with a
+              translucent fill, so the comb reads through the letterforms. */}
+          <div className="absolute inset-0 z-10 lg:z-[25] flex items-start lg:items-center justify-center select-none pointer-events-none pt-[16vh] lg:pt-0 lg:pb-[32vh]">
+            <motion.h2
+              initial={{ opacity: 0, letterSpacing: '0.1em' }}
+              animate={{ opacity: 1, letterSpacing: '-0.04em' }}
+              transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+              className="display-text text-[16.5vw] text-ink lg:text-ink/[0.82] leading-none uppercase whitespace-nowrap"
+            >
               PEGASUS
-            </h2>
+            </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1 relative z-10 my-auto">
-            {/* Left Col: Creative Title block */}
-            <div className="lg:col-span-5 text-left space-y-6">
-              <span className="mono-tag text-xs text-gold border-b border-gold/30 pb-2 inline-block">
-                THE ICONIC VULCANITE COMBS
-              </span>
-              <h2 className="editorial-text text-5xl md:text-6xl lg:text-7xl text-white font-medium leading-none">
-                INFINITE<br />STYLING.
-              </h2>
-              <p className="font-sans text-sm md:text-base text-silver leading-relaxed max-w-md">
-                We design professional styling tools through materials innovation. Every tooth is diamond-cut, hand-beveled, and clay-polished to preserve salon cuticle health.
-              </p>
-              
-              <div className="flex gap-4 pt-4">
-                <button
-                  onClick={() => navigateToSection('ai-styling-assistant')}
-                  className="bg-white hover:bg-gold text-black px-6 py-3.5 rounded text-xs font-mono uppercase tracking-widest transition-all cursor-pointer font-medium"
-                >
-                  Custom Consultation
-                </button>
+          {/* Editorial copy blocks — above the comb layer */}
+          <div className="relative z-30 flex-1 flex flex-col justify-end">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end w-full">
+              {/* Bottom-left: campaign statement */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="lg:col-span-4 space-y-4 max-w-xs"
+              >
+                <h3 className="display-text text-2xl md:text-3xl tracking-[0.06em] text-ink uppercase">
+                  Our Craft
+                </h3>
+                <p className="text-sm text-silver leading-relaxed">
+                  At PEGASUS, every comb unfolds a new story — a journey through
+                  diamond saw-cut teeth, hand-beveled edges, and six decades of
+                  cutting-edge German toolmaking.
+                </p>
+              </motion.div>
+
+              {/* Centre: campaign banner slider (desktop only) */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="hidden lg:block lg:col-span-4"
+              >
+                <BannerSlider className="h-[260px] xl:h-[300px] w-full" />
+              </motion.div>
+
+              {/* Right: seasonal block, accent heading */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="lg:col-span-4 space-y-4 max-w-xs lg:ml-auto lg:mb-24"
+              >
+                <h3 className="display-text text-2xl md:text-3xl tracking-[0.04em] uppercase" style={{ color: '#00adbb' }}>
+                  Since 1961
+                </h3>
+                <p className="text-sm text-silver leading-relaxed">
+                  Redefines the essence of grooming, taking inspiration from its
+                  Munich roots and evolving it into an expression of sculptural,
+                  frictionless styling.
+                </p>
                 <button
                   onClick={() => navigateToSection('product-collections')}
-                  className="border border-white/10 hover:border-white px-6 py-3.5 rounded text-xs font-mono uppercase tracking-widest text-silver hover:text-white transition-all cursor-pointer"
+                  className="group flex items-center gap-2 mono-tag text-[11px] text-ink pt-2 cursor-pointer"
                 >
                   Explore Collections
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                 </button>
-              </div>
-            </div>
-
-            {/* Middle Col: Floating projected 3D comb inside canvas */}
-            <div className="lg:col-span-4 h-[350px] md:h-[450px] relative flex items-center justify-center">
-              <PegasusComb
-                activeSection="hero"
-                scrollProgress={scrollProgress}
-                mousePos={mousePos}
-                materialOverride={activeCollection}
-              />
-            </div>
-
-            {/* Right Col: Specific technical facts cards */}
-            <div className="lg:col-span-3 text-left space-y-6 lg:pl-6 border-l border-white/5">
-              <div className="space-y-1">
-                <span className="font-mono text-[9px] text-gold uppercase tracking-wider block">Material science</span>
-                <h4 className="font-sans text-sm text-white font-medium">Flexinite Integration</h4>
-                <p className="font-sans text-xs text-silver leading-relaxed">
-                  Thermo-sensitive elastomer that softens under hair dryers, reducing styling tension by up to 43%.
-                </p>
-              </div>
-
-              <div className="space-y-1">
-                <span className="font-mono text-[9px] text-gold uppercase tracking-wider block">Scalp protection</span>
-                <h4 className="font-sans text-sm text-white font-medium">Hand-Beveled Rounding</h4>
-                <p className="font-sans text-xs text-silver leading-relaxed">
-                  Clay-polished teeth entirely free from micro-seams, stimulating scalp flow and glossing cuticles.
-                </p>
-              </div>
-
-              <div className="space-y-1">
-                <span className="font-mono text-[9px] text-gold uppercase tracking-wider block">Global trust</span>
-                <h4 className="font-sans text-sm text-white font-medium">German Manufacture</h4>
-                <p className="font-sans text-xs text-silver leading-relaxed">
-                  sixty years of Presto Industries heritage built for leading fashion runaways and daily salon workflows.
-                </p>
-              </div>
+              </motion.div>
             </div>
           </div>
 
           {/* Bottom Bar facts */}
-          <div className="relative z-10 border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <span className="font-mono text-[9px] text-silver tracking-widest uppercase">
+          <div className="relative z-30 border-t border-black/5 pt-6 mt-12 flex flex-col md:flex-row justify-between items-center gap-4">
+            <span className="mono-tag text-[11px] text-silver">
               Designed in Munich — Handcrafted globally
             </span>
-            <div className="flex gap-8 text-[10px] font-mono text-silver">
+            <div className="hidden md:flex gap-8 text-[11px] mono-tag text-silver">
               <span>EST. 1961</span>
-              <span>•</span>
+              <span className="text-accent">•</span>
               <span>80+ AUTHORIZED COUNTRIES</span>
-              <span>•</span>
+              <span className="text-accent">•</span>
               <span>AA ACCESSIBILITY</span>
             </div>
           </div>
         </section>
 
 
-        {/* SECTION 2: ABOUT HISTORY TIMELINE (Cinematic scrolling timeline) */}
+        {/* SECTION 1.5: CAMPAIGN BANNERS — standalone slider on mobile/tablet */}
+        <section
+          id="campaign-banners"
+          className="lg:hidden relative py-16 px-6 md:px-12 border-t border-black/5"
+        >
+          <div className="text-center mb-8">
+            <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-3 inline-block">
+              THE CAMPAIGN
+            </span>
+            <h2 className="editorial-text text-3xl md:text-4xl text-ink">
+              Season Highlights
+            </h2>
+          </div>
+          <BannerSlider className="h-[280px] md:h-[360px] w-full max-w-2xl mx-auto" />
+        </section>
+
+
+        {/* SECTION 2: ABOUT HISTORY TIMELINE */}
         <section
           id="about-timeline"
-          onMouseEnter={() => setActiveSection('about')}
-          className="relative min-h-screen bg-charcoal/30 border-y border-white/5 py-20 px-6 md:px-12 lg:px-24 flex flex-col justify-between overflow-hidden"
+          onMouseEnter={() => setActiveSection('about-timeline')}
+          className="relative min-h-screen bg-mist border-y border-black/5 py-20 px-6 md:px-12 lg:px-24 flex flex-col justify-between overflow-hidden"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center flex-1">
             {/* Left: General statement */}
-            <div className="lg:col-span-5 text-left space-y-6">
-              <span className="mono-tag text-xs text-gold border-b border-gold/30 pb-2 inline-block">
+            <motion.div {...reveal} className="lg:col-span-5 text-left space-y-6 relative z-30">
+              <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 inline-block">
                 THE PRESTO INDUSTRIES LEGACY
               </span>
-              <h3 className="editorial-text text-4xl md:text-5xl text-white font-medium leading-tight">
+              <h3 className="editorial-text text-4xl md:text-5xl text-ink leading-tight">
                 65 Years of Engineering Salon Precision
               </h3>
-              <p className="font-sans text-sm text-silver leading-relaxed">
+              <p className="text-sm text-silver leading-relaxed">
                 Pegasus was not designed overnight. We represent more than six decades of technical toolmaking under Presto Industries. Since 1961, we have built physical structures designed specifically for hair alignment, combining natural organic materials with premium mechanical saw-cutting systems.
               </p>
 
@@ -490,25 +484,25 @@ export default function Home() {
                   <button
                     key={t.year}
                     onClick={() => setActiveTimelineYear(t.year)}
-                    className={`px-4 py-2.5 rounded text-xs font-mono transition-all ${
+                    className={`px-4 py-2.5 rounded-full text-xs mono-tag transition-all cursor-pointer ${
                       activeTimelineYear === t.year
-                        ? 'bg-gold text-black font-medium'
-                        : 'bg-white/5 hover:bg-white/10 text-silver hover:text-white'
+                        ? 'bg-ink text-white'
+                        : 'bg-white border border-black/10 text-silver hover:text-ink hover:border-ink/30'
                     }`}
                   >
                     {t.year}
                   </button>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Middle: Live projected 3D comb as vertical axis indicator */}
-            <div className="lg:col-span-3 h-[300px] md:h-[400px] relative flex items-center justify-center">
-              <PegasusComb activeSection="about" scrollProgress={scrollProgress} mousePos={mousePos} />
+            {/* Middle: open stage — the floating comb docks here */}
+            <div className="hidden lg:block lg:col-span-3 h-[300px] md:h-[400px] relative">
+              <div className="absolute inset-x-4 bottom-16 h-10 rounded-[100%] bg-ink/5 blur-2xl" />
             </div>
 
             {/* Right: Dynamic description card for timeline */}
-            <div className="lg:col-span-4 text-left">
+            <div className="lg:col-span-4 text-left relative z-30">
               <AnimatePresence mode="wait">
                 {timelineData.map((t) => {
                   if (t.year !== activeTimelineYear) return null;
@@ -519,15 +513,15 @@ export default function Home() {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
                       transition={{ duration: 0.4 }}
-                      className="bg-black/40 border border-white/5 p-8 rounded-lg space-y-4"
+                      className="lux-card p-8 rounded-2xl space-y-4"
                     >
-                      <span className="editorial-text text-5xl md:text-6xl text-gold font-light tracking-tight block">
+                      <span className="editorial-text text-5xl md:text-6xl font-light tracking-tight block" style={{ color: '#00adbb' }}>
                         {t.year}
                       </span>
-                      <h4 className="font-sans text-lg text-white font-medium">
+                      <h4 className="text-lg text-ink font-medium">
                         {t.title}
                       </h4>
-                      <p className="font-sans text-xs text-silver leading-relaxed">
+                      <p className="text-xs text-silver leading-relaxed">
                         {t.desc}
                       </p>
                     </motion.div>
@@ -539,39 +533,36 @@ export default function Home() {
         </section>
 
 
-        {/* SECTION 3: WHAT WE OFFER / COLLECTIONS (Immersive Material Selector) */}
+        {/* SECTION 3: COLLECTIONS (Immersive Material Selector) */}
         <section
           id="product-collections"
-          onMouseEnter={() => setActiveSection(`collections-${activeCollection}`)}
+          onMouseEnter={() => setActiveSection('product-collections')}
           className="relative min-h-screen py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-between overflow-hidden"
         >
-          <div className="text-center mb-16">
-            <span className="mono-tag text-xs text-gold border-b border-gold/30 pb-2 mb-4 inline-block">
+          <motion.div {...reveal} className="text-center mb-16 relative z-30">
+            <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-4 inline-block">
               MATERIAL TAXONOMY
             </span>
-            <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-white font-medium mb-4">
+            <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-ink mb-4">
               The Three Professional Pillars
             </h2>
             <p className="text-silver max-w-xl mx-auto text-sm md:text-base leading-relaxed">
               Each collection represents a bespoke material philosophy, sculpted individually to match specific chemical and styling dynamics.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1 my-auto">
             {/* Left: Material choices with description */}
-            <div className="lg:col-span-5 space-y-6 text-left">
-              <div className="flex gap-2 border-b border-white/5 pb-4">
+            <div className="lg:col-span-5 space-y-6 text-left relative z-30">
+              <div className="flex gap-2 border-b border-black/5 pb-4">
                 {Object.keys(collectionsData).map((key) => (
                   <button
                     key={key}
-                    onClick={() => {
-                      setActiveCollection(key as any);
-                      setActiveSection(`collections-${key}`);
-                    }}
-                    className={`flex-1 py-3 text-center text-[10px] font-mono uppercase tracking-widest border transition-all ${
+                    onClick={() => setActiveCollection(key as 'rubber' | 'cellulose' | 'wood')}
+                    className={`flex-1 py-3 text-center text-[11px] mono-tag border-b-2 transition-all cursor-pointer ${
                       activeCollection === key
-                        ? 'border-gold text-white bg-white/5'
-                        : 'border-transparent text-silver hover:text-white'
+                        ? 'border-accent text-ink'
+                        : 'border-transparent text-silver hover:text-ink'
                     }`}
                   >
                     {key === 'rubber' ? 'Hard Rubber' : key === 'cellulose' ? 'Cellulose' : 'Ecowood'}
@@ -590,23 +581,23 @@ export default function Home() {
                       exit={{ opacity: 0, y: -15 }}
                       className="space-y-4"
                     >
-                      <span className="mono-tag text-[10px] text-gold tracking-widest block">Featured Composition</span>
-                      <h3 className="font-sans text-2xl md:text-3xl text-white font-medium">
+                      <span className="mono-tag text-[11px] text-accent block">Featured Composition</span>
+                      <h3 className="editorial-text text-3xl md:text-4xl text-ink">
                         {col.title}
                       </h3>
-                      <span className="font-mono text-xs text-silver block italic border-l-2 border-gold pl-3 py-1 bg-white/[0.02]">
+                      <span className="text-xs text-silver block italic border-l-2 border-accent pl-3 py-1 bg-mist">
                         Material: {col.materials}
                       </span>
-                      <p className="font-sans text-xs md:text-sm text-silver leading-relaxed">
+                      <p className="text-xs md:text-sm text-silver leading-relaxed">
                         {col.description}
                       </p>
 
                       <div className="pt-4 space-y-2">
-                        <span className="font-mono text-[9px] text-gold uppercase tracking-wider block">Technical Parameters</span>
+                        <span className="mono-tag text-[11px] text-accent block">Technical Parameters</span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                           {col.specifications.map((spec, idx) => (
-                            <div key={idx} className="flex items-center gap-2 bg-black/40 border border-white/5 px-3 py-2 rounded text-xs text-silver">
-                              <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
+                            <div key={idx} className="flex items-center gap-2 bg-white border border-black/8 px-3 py-2 rounded-lg text-xs text-silver">
+                              <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
                               {spec}
                             </div>
                           ))}
@@ -618,19 +609,14 @@ export default function Home() {
               </AnimatePresence>
             </div>
 
-            {/* Middle: Large material-switching comb render */}
-            <div className="lg:col-span-4 h-[350px] md:h-[450px] relative flex items-center justify-center">
-              <PegasusComb
-                activeSection={`collections-${activeCollection}`}
-                scrollProgress={scrollProgress}
-                mousePos={mousePos}
-                materialOverride={activeCollection}
-              />
+            {/* Middle: open stage for the travelling comb */}
+            <div className="hidden lg:block lg:col-span-4 h-[350px] md:h-[450px] relative">
+              <div className="absolute inset-x-8 bottom-20 h-12 rounded-[100%] bg-ink/5 blur-2xl" />
             </div>
 
             {/* Right: Immersive Product Image Spotlight Card */}
-            <div className="lg:col-span-3 text-left">
-              <div className="bg-charcoal border border-white/5 rounded-lg overflow-hidden relative shadow-2xl">
+            <div className="lg:col-span-3 text-left relative z-30">
+              <div className="lux-card rounded-2xl overflow-hidden relative">
                 <div className="h-48 overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-500">
                   <img
                     src={
@@ -644,21 +630,21 @@ export default function Home() {
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-3 left-3 bg-black/80 px-2 py-1 rounded font-mono text-[8px] text-gold tracking-widest uppercase">
+                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur px-2 py-1 rounded mono-tag text-[10px] text-accent">
                     high-res detail
                   </div>
                 </div>
 
-                <div className="p-5 space-y-3 bg-black/30">
-                  <h4 className="font-sans text-xs text-white font-medium uppercase tracking-wider">
+                <div className="p-5 space-y-3">
+                  <h4 className="text-xs text-ink font-medium uppercase tracking-[0.15em]">
                     Bespoke Salon Profile
                   </h4>
-                  <p className="font-sans text-[11px] text-silver leading-normal">
+                  <p className="text-xs text-silver leading-normal">
                     Designed for heavy chemical processing resistance and frictionless dry detangling. Trusted by luxury salon academies globally.
                   </p>
                   <button
                     onClick={() => navigateToSection('request-brochure')}
-                    className="flex items-center gap-1.5 font-mono text-[9px] text-gold uppercase tracking-widest pt-2 hover:underline cursor-pointer"
+                    className="flex items-center gap-1.5 mono-tag text-[11px] text-accent pt-2 hover:underline cursor-pointer"
                   >
                     View Catalog Spec Sheets <ChevronRight className="w-3 h-3" />
                   </button>
@@ -669,51 +655,43 @@ export default function Home() {
         </section>
 
 
-        {/* SECTION 4: CORE TECHNOLOGIES (Hotspots Exploded View) */}
+        {/* SECTION 4: CORE TECHNOLOGIES */}
         <section
           id="core-technologies"
-          onMouseEnter={() => setActiveSection(`technology-${selectedTech}`)}
-          className="relative min-h-screen bg-charcoal/30 border-y border-white/5 py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-between overflow-hidden"
+          onMouseEnter={() => setActiveSection('core-technologies')}
+          className="relative min-h-screen bg-mist border-y border-black/5 py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-between overflow-hidden"
         >
-          <div className="text-center mb-16">
-            <span className="mono-tag text-xs text-gold border-b border-gold/30 pb-2 mb-4 inline-block">
+          <motion.div {...reveal} className="text-center mb-16 relative z-30">
+            <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-4 inline-block">
               ENGINEERING EXCELLENCE
             </span>
-            <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-white font-medium mb-4">
+            <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-ink mb-4">
               Proprietary Technologies
             </h2>
             <p className="text-silver max-w-xl mx-auto text-sm md:text-base leading-relaxed">
               We do not copy; we pioneer. Pegasus represents a unified trilogy of structural materials patents designed specifically for premium salons.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1 my-auto">
-            {/* Left Col: Exploded/Scanning Active Comb Canvas */}
-            <div className="lg:col-span-4 h-[350px] md:h-[450px] relative flex items-center justify-center">
-              <PegasusComb
-                activeSection={`technology-${selectedTech}`}
-                scrollProgress={scrollProgress}
-                mousePos={mousePos}
-                materialOverride={activeCollection}
-              />
-              {/* Pulsing Scan Line Overlay simulating technical measurement */}
-              <div className="absolute left-[10%] right-[10%] h-[1px] bg-gold/50 shadow-[0_0_10px_#c5a880] animate-[bounce_4s_infinite_ease-in-out] pointer-events-none" />
+            {/* Left: open stage — the comb glides here for inspection */}
+            <div className="hidden lg:block lg:col-span-4 h-[350px] md:h-[450px] relative">
+              <div className="absolute inset-x-8 bottom-20 h-12 rounded-[100%] bg-ink/5 blur-2xl" />
+              {/* Scan line, now a thin accent thread */}
+              <div className="absolute left-[10%] right-[10%] h-[1px] bg-accent/50 shadow-[0_0_10px_#00adbb] animate-[bounce_4s_infinite_ease-in-out] pointer-events-none" />
             </div>
 
-            {/* Middle Col: Technology Switch buttons & deep description */}
-            <div className="lg:col-span-5 text-left space-y-6">
+            {/* Middle: Technology Switch buttons & deep description */}
+            <div className="lg:col-span-5 text-left space-y-6 relative z-30">
               <div className="flex gap-2">
                 {Object.keys(techData).map((techKey) => (
                   <button
                     key={techKey}
-                    onClick={() => {
-                      setSelectedTech(techKey as any);
-                      setActiveSection(`technology-${techKey}`);
-                    }}
-                    className={`flex-1 py-3 text-center text-[10px] font-mono uppercase tracking-widest border transition-all ${
+                    onClick={() => setSelectedTech(techKey as 'glamlock' | 'flexinite' | 'staticblock')}
+                    className={`flex-1 py-3 text-center text-[11px] mono-tag border-b-2 transition-all cursor-pointer ${
                       selectedTech === techKey
-                        ? 'border-gold text-white bg-white/5'
-                        : 'border-transparent text-silver hover:text-white'
+                        ? 'border-accent text-ink'
+                        : 'border-transparent text-silver hover:text-ink'
                     }`}
                   >
                     {techKey.toUpperCase()}
@@ -732,26 +710,26 @@ export default function Home() {
                       exit={{ opacity: 0 }}
                       className="space-y-4"
                     >
-                      <span className="mono-tag text-[9px] text-gold tracking-widest block">Patented System</span>
-                      <h3 className="font-sans text-2xl md:text-3xl text-white font-medium">
+                      <span className="mono-tag text-[11px] text-accent block">Patented System</span>
+                      <h3 className="editorial-text text-3xl md:text-4xl text-ink">
                         {tech.title}
                       </h3>
-                      <span className="font-sans text-xs text-white block uppercase tracking-wider italic">
+                      <span className="text-xs block uppercase tracking-[0.15em] italic" style={{ color: '#00adbb' }}>
                         {tech.subtitle}
                       </span>
-                      <p className="font-sans text-xs md:text-sm text-silver leading-relaxed">
+                      <p className="text-xs md:text-sm text-silver leading-relaxed">
                         {tech.details}
                       </p>
 
-                      <div className="pt-4 border-t border-white/5">
-                        <span className="font-mono text-[9px] text-gold uppercase tracking-wider block mb-3">Core Efficacy Hotspots</span>
+                      <div className="pt-4 border-t border-black/5">
+                        <span className="mono-tag text-[11px] text-accent block mb-3">Core Efficacy Hotspots</span>
                         <div className="space-y-3">
                           {tech.hotspots.map((h, i) => (
-                            <div key={i} className="bg-black/30 border border-white/5 p-4 rounded flex gap-4 items-start">
-                              <span className="font-mono text-xs text-gold">0{i+1}</span>
+                            <div key={i} className="bg-white border border-black/8 p-4 rounded-xl flex gap-4 items-start">
+                              <span className="mono-tag text-xs text-accent">0{i+1}</span>
                               <div>
-                                <h5 className="font-sans text-xs text-white font-medium">{h.title}</h5>
-                                <p className="font-sans text-[11px] text-silver mt-1">{h.desc}</p>
+                                <h5 className="text-xs text-ink font-medium">{h.title}</h5>
+                                <p className="text-xs text-silver mt-1">{h.desc}</p>
                               </div>
                             </div>
                           ))}
@@ -763,36 +741,35 @@ export default function Home() {
               </AnimatePresence>
             </div>
 
-            {/* Right Col: Interactive Scanning Status Data Card */}
-            <div className="lg:col-span-3 text-left lg:pl-6 border-l border-white/5 space-y-6">
-              <span className="mono-tag text-[10px] text-gold tracking-widest block">System Diagnostics</span>
-              
-              <div className="space-y-4 font-mono text-[11px] text-silver">
+            {/* Right: Interactive Scanning Status Data Card */}
+            <div className="lg:col-span-3 text-left lg:pl-6 border-l border-black/5 space-y-6 relative z-30">
+              <span className="mono-tag text-[11px] text-accent block">System Diagnostics</span>
+
+              <div className="space-y-4 text-xs text-silver tracking-[0.08em]">
                 <div>
-                  <span className="text-white block uppercase mb-1">SCANNING UNIT</span>
+                  <span className="text-ink block uppercase mb-1 font-medium">SCANNING UNIT</span>
                   <span>PEGASUS PRO-48</span>
                 </div>
                 <div>
-                  <span className="text-white block uppercase mb-1">MATERIAL MATRIX</span>
+                  <span className="text-ink block uppercase mb-1 font-medium">MATERIAL MATRIX</span>
                   <span>VULCANITE CARBON INFUSED</span>
                 </div>
                 <div>
-                  <span className="text-white block uppercase mb-1">HEAT THRESHOLD</span>
+                  <span className="text-ink block uppercase mb-1 font-medium">HEAT THRESHOLD</span>
                   <span>230°C / 446°F CONSTANT</span>
                 </div>
                 <div>
-                  <span className="text-white block uppercase mb-1">FRICTION REGIME</span>
+                  <span className="text-ink block uppercase mb-1 font-medium">FRICTION REGIME</span>
                   <span>SEAMLESS ROUNDED 0.02μm</span>
                 </div>
               </div>
 
-              {/* Glowing highlight indicating active scanning state */}
-              <div className="border border-gold/20 bg-gold/5 p-4 rounded text-xs text-silver space-y-2">
-                <div className="flex justify-between items-center text-white font-medium text-xs">
+              <div className="border border-accent/25 bg-accent/5 p-4 rounded-xl text-xs text-silver space-y-2">
+                <div className="flex justify-between items-center text-ink font-medium text-xs">
                   <span>GLAMLOCK METRICS</span>
-                  <span className="text-gold">100% SECURE</span>
+                  <span className="text-accent">100% SECURE</span>
                 </div>
-                <p className="font-sans text-[10px] text-silver leading-normal">
+                <p className="text-[11px] text-silver leading-normal">
                   All Pegasus comb teeth are clinically evaluated under micro-laser matrices to guarantee zero raw seams.
                 </p>
               </div>
@@ -801,133 +778,144 @@ export default function Home() {
         </section>
 
 
-        {/* SECTION 5: AI CONSULTANT (Bespoke Formulation Protocol Component) */}
+        {/* SECTION 5: AI CONSULTANT */}
         <section
           id="ai-styling-assistant"
-          onMouseEnter={() => setActiveSection('ai-consultant')}
+          onMouseEnter={() => setActiveSection('ai-styling-assistant')}
           className="relative min-h-screen py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-center overflow-hidden"
         >
           {/* Ambient glowing circles */}
-          <div className="absolute top-[20%] left-[10%] w-72 h-72 rounded-full bg-gold/5 blur-[80px] pointer-events-none" />
-          <div className="absolute bottom-[20%] right-[10%] w-96 h-96 rounded-full bg-gold/5 blur-[120px] pointer-events-none" />
+          <div className="absolute top-[20%] left-[10%] w-72 h-72 rounded-full bg-accent/5 blur-[80px] pointer-events-none" />
+          <div className="absolute bottom-[20%] right-[10%] w-96 h-96 rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
 
-          {/* Render the core AiAssistant element */}
-          <AiAssistant />
+          <div className="relative z-30">
+            <AiAssistant />
+          </div>
         </section>
 
 
-        {/* SECTION 6: WHO WE SERVE (Premium Visual Cards) */}
+        {/* SECTION 6: WHO WE SERVE */}
         <section
           id="professional-markets"
-          onMouseEnter={() => setActiveSection('whoweserve')}
-          className="relative min-h-screen bg-charcoal/30 border-t border-white/5 py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-between overflow-hidden"
+          onMouseEnter={() => setActiveSection('professional-markets')}
+          className="relative min-h-screen bg-mist border-t border-black/5 py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-between overflow-hidden"
         >
-          <div className="text-center mb-16">
-            <span className="mono-tag text-xs text-gold border-b border-gold/30 pb-2 mb-4 inline-block">
+          <motion.div {...reveal} className="text-center mb-16 relative z-30">
+            <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-4 inline-block">
               GLOBAL ALIGNMENT
             </span>
-            <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-white font-medium mb-4">
+            <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-ink mb-4">
               Professional Markets
             </h2>
             <p className="text-silver max-w-xl mx-auto text-sm md:text-base leading-relaxed">
               Serving the global echelon of hairdressing, from individual creative artists to elite high-volume salon networks.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch flex-1 my-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch flex-1 my-auto relative z-30">
             {whoWeServeData.map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div
+                <motion.div
                   key={idx}
-                  className="bg-charcoal border border-white/5 p-8 rounded-lg hover:border-gold/30 transition-all duration-300 flex flex-col justify-between group"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{ duration: 0.7, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                  className="lux-card p-8 rounded-2xl hover:border-accent/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
                 >
                   <div className="space-y-6">
-                    <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-black transition-all">
+                    <div className="w-12 h-12 bg-mist border border-black/8 rounded-full flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all">
                       <Icon className="w-5 h-5" />
                     </div>
-                    
+
                     <div className="space-y-1">
-                      <span className="font-mono text-[9px] text-gold uppercase tracking-wider block">{item.role}</span>
-                      <h4 className="font-sans text-xl text-white font-medium">{item.title}</h4>
+                      <span className="mono-tag text-[11px] text-accent block">{item.role}</span>
+                      <h4 className="editorial-text text-2xl text-ink">{item.title}</h4>
                     </div>
 
-                    <p className="font-sans text-xs text-silver leading-relaxed">
+                    <p className="text-xs text-silver leading-relaxed">
                       {item.desc}
                     </p>
                   </div>
 
-                  <div className="border-t border-white/5 pt-6 mt-8 space-y-3">
-                    <span className="font-mono text-[9px] text-silver uppercase tracking-wider block">Key Parameters</span>
+                  <div className="border-t border-black/5 pt-6 mt-8 space-y-3">
+                    <span className="mono-tag text-[11px] text-silver block">Key Parameters</span>
                     <ul className="space-y-1.5">
                       {item.features.map((feat, fIdx) => (
-                        <li key={fIdx} className="font-sans text-xs text-white/80 flex items-center gap-2">
-                          <span className="w-1 h-1 rounded-full bg-gold" /> {feat}
+                        <li key={fIdx} className="text-xs text-ink/80 flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-accent" /> {feat}
                         </li>
                       ))}
                     </ul>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
         </section>
 
 
-        {/* SECTION 7: EDITORIAL CHRONICLES BLOG (Magazine Filter, Search & Reading View) */}
+        {/* SECTION 7: EDITORIAL CHRONICLES BLOG */}
         <section
           id="editorial-blog"
-          onMouseEnter={() => setActiveSection('blog')}
+          onMouseEnter={() => setActiveSection('editorial-blog')}
           className="relative min-h-screen py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-center overflow-hidden"
         >
-          <Blog />
+          <div className="relative z-30">
+            <Blog />
+          </div>
         </section>
 
 
-        {/* SECTION 8: REQUEST BROCHURE (Multi-step Form Component) */}
+        {/* SECTION 8: REQUEST BROCHURE */}
         <section
           id="request-brochure"
-          onMouseEnter={() => setActiveSection('brochure')}
-          className="relative min-h-screen bg-charcoal/30 border-y border-white/5 py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-center overflow-hidden"
+          onMouseEnter={() => setActiveSection('request-brochure')}
+          className="relative min-h-screen bg-mist border-y border-black/5 py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-center overflow-hidden"
         >
-          <BrochureForm />
+          <div className="relative z-30">
+            <BrochureForm />
+          </div>
         </section>
 
 
-        {/* SECTION 9: CONTACT & WORLD OFFICES MAP (Interactive Map Component) */}
+        {/* SECTION 9: CONTACT & WORLD OFFICES MAP */}
         <section
           id="global-contact"
-          onMouseEnter={() => setActiveSection('contact')}
+          onMouseEnter={() => setActiveSection('global-contact')}
           className="relative min-h-screen py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-center overflow-hidden"
         >
-          <InteractiveMap />
+          <div className="relative z-30">
+            <InteractiveMap />
+          </div>
         </section>
 
       </main>
 
       {/* 10. LUXURY PREMIUM FOOTER */}
-      <footer className="bg-black border-t border-white/5 pt-20 pb-10 px-6 md:px-12 lg:px-24 relative overflow-hidden">
-        
-        {/* Animated massive PEGASUS logo */}
-        <div className="text-center mb-16 select-none pointer-events-none">
-          <h2 className="editorial-text text-[12vw] text-white/5 font-extrabold tracking-widest leading-none uppercase animate-pulse">
+      <footer className="bg-white border-t border-black/5 pt-20 pb-10 px-6 md:px-12 lg:px-24 relative overflow-hidden">
+
+        {/* Massive PEGASUS wordmark — the comb comes home to rest across it */}
+        <div className="text-center mb-16 select-none pointer-events-none relative">
+          <h2 className="display-text text-[12vw] text-ink/[0.05] tracking-[0.08em] leading-none uppercase">
             PEGASUS
           </h2>
-          <span className="mono-tag text-xs text-gold/60 tracking-[0.3em] block -mt-4">
+          <span className="mono-tag text-xs text-accent/70 tracking-[0.3em] block -mt-4">
             INFINITE STYLING
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 mb-12 border-b border-white/5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 mb-12 border-b border-black/5 relative z-30">
           {/* Col 1: Newsletter */}
           <div className="space-y-4">
-            <span className="font-mono text-[9px] text-gold uppercase tracking-widest block">Join The Academy Chronology</span>
-            <p className="font-sans text-xs text-silver leading-relaxed">
+            <span className="mono-tag text-[11px] text-accent block">Join The Academy Chronology</span>
+            <p className="text-xs text-silver leading-relaxed">
               Receive periodic briefs on material science breakthroughs, professional tool launches, and exclusive salon masterclass guides.
             </p>
-            
+
             {newsletterSubscribed ? (
-              <div className="bg-gold/10 border border-gold p-3 text-center text-xs text-white rounded">
+              <div className="bg-accent/10 border border-accent p-3 text-center text-xs text-ink rounded-lg">
                 Verified. You are on the registry.
               </div>
             ) : (
@@ -937,7 +925,7 @@ export default function Home() {
                   placeholder="Corporate email"
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
-                  className="p-3 custom-input rounded text-xs flex-1"
+                  className="p-3 custom-input rounded-lg text-xs flex-1"
                 />
                 <button
                   onClick={() => {
@@ -945,7 +933,7 @@ export default function Home() {
                       setNewsletterSubscribed(true);
                     }
                   }}
-                  className="px-4 py-3 bg-white text-black hover:bg-gold hover:text-black transition-colors font-mono text-xs uppercase tracking-widest rounded"
+                  className="px-4 py-3 bg-ink text-white hover:bg-accent transition-colors mono-tag text-xs rounded-lg cursor-pointer"
                 >
                   Join
                 </button>
@@ -955,51 +943,51 @@ export default function Home() {
 
           {/* Col 2: Navigation links */}
           <div className="space-y-4 lg:pl-12">
-            <span className="font-mono text-[9px] text-gold uppercase tracking-widest block">System Terminal</span>
+            <span className="mono-tag text-[11px] text-accent block">Atelier</span>
             <ul className="space-y-2 text-xs text-silver">
-              <li><button onClick={() => navigateToSection('hero')} className="hover:text-white transition-all">Backbone Terminal</button></li>
-              <li><button onClick={() => navigateToSection('about-timeline')} className="hover:text-white transition-all">Presto Chronicles</button></li>
-              <li><button onClick={() => navigateToSection('product-collections')} className="hover:text-white transition-all">Material Classifications</button></li>
-              <li><button onClick={() => navigateToSection('core-technologies')} className="hover:text-white transition-all">Patented Technologies</button></li>
-              <li><button onClick={() => navigateToSection('ai-styling-assistant')} className="hover:text-white transition-all text-gold">Custom Regimens</button></li>
+              <li><button onClick={() => navigateToSection('hero')} className="hover:text-ink transition-all cursor-pointer">The Campaign</button></li>
+              <li><button onClick={() => navigateToSection('about-timeline')} className="hover:text-ink transition-all cursor-pointer">Presto Chronicles</button></li>
+              <li><button onClick={() => navigateToSection('product-collections')} className="hover:text-ink transition-all cursor-pointer">Material Classifications</button></li>
+              <li><button onClick={() => navigateToSection('core-technologies')} className="hover:text-ink transition-all cursor-pointer">Patented Technologies</button></li>
+              <li><button onClick={() => navigateToSection('ai-styling-assistant')} className="hover:text-ink transition-all text-accent cursor-pointer">Custom Regimens</button></li>
             </ul>
           </div>
 
           {/* Col 3: Industry links */}
           <div className="space-y-4 lg:pl-12">
-            <span className="font-mono text-[9px] text-gold uppercase tracking-widest block">Corporate Affiliations</span>
+            <span className="mono-tag text-[11px] text-accent block">Corporate Affiliations</span>
             <ul className="space-y-2 text-xs text-silver">
-              <li><button onClick={() => navigateToSection('professional-markets')} className="hover:text-white transition-all">Salon Procurement</button></li>
-              <li><button onClick={() => navigateToSection('request-brochure')} className="hover:text-white transition-all">Tactile Catalog Portfolio</button></li>
-              <li><button onClick={() => navigateToSection('global-contact')} className="hover:text-white transition-all">General Agency Relations</button></li>
-              <li><a href="https://www.presto-industries.de" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all flex items-center gap-1">Presto Industries DE <ExternalLink className="w-3 h-3 text-gold" /></a></li>
+              <li><button onClick={() => navigateToSection('professional-markets')} className="hover:text-ink transition-all cursor-pointer">Salon Procurement</button></li>
+              <li><button onClick={() => navigateToSection('request-brochure')} className="hover:text-ink transition-all cursor-pointer">Tactile Catalog Portfolio</button></li>
+              <li><button onClick={() => navigateToSection('global-contact')} className="hover:text-ink transition-all cursor-pointer">General Agency Relations</button></li>
+              <li><a href="https://www.presto-industries.de" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-all flex items-center gap-1">Presto Industries DE <ExternalLink className="w-3 h-3 text-accent" /></a></li>
             </ul>
           </div>
 
           {/* Col 4: Address / Legal */}
-          <div className="space-y-4 font-sans text-xs text-silver">
-            <span className="font-mono text-[9px] text-gold uppercase tracking-widest block">Munich Headquarters</span>
+          <div className="space-y-4 text-xs text-silver">
+            <span className="mono-tag text-[11px] text-accent block">Munich Headquarters</span>
             <p>
               Presto Industries GmbH & Co. KG<br />
               Schleissheimer Str. 102<br />
               80797 Munich, Germany
             </p>
-            <p className="text-[10px] text-silver/60">
+            <p className="text-[11px] text-silver/70">
               USt-IdNr. DE 129 444 821<br />
               Registered District Court Munich HRA 48211
             </p>
           </div>
         </div>
 
-        {/* Copywrite / Legal Footer */}
-        <div className="flex flex-col md:flex-row justify-between items-center text-[10px] font-mono text-silver/60 gap-4">
+        {/* Copyright / Legal Footer */}
+        <div className="flex flex-col md:flex-row justify-between items-center text-[11px] mono-tag text-silver/70 gap-4 relative z-30">
           <span>
-            © {new Date().getFullYear()} PEGASUS HAIR TOOLS. UNDER LICENSE OF PRESTO INDUSTRIES GMBH. ALL RIGHTS RESERVED.
+            © {new Date().getFullYear()} PEGASUS HAIR TOOLS. UNDER LICENSE OF PRESTO INDUSTRIES GMBH.
           </span>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-white transition-colors">PRIVACY REGISTRY</a>
-            <a href="#" className="hover:text-white transition-colors">TRADEMARKS</a>
-            <a href="#" className="hover:text-white transition-colors">REGULATORY METRICS</a>
+            <a href="#" className="hover:text-ink transition-colors">PRIVACY REGISTRY</a>
+            <a href="#" className="hover:text-ink transition-colors">TRADEMARKS</a>
+            <a href="#" className="hover:text-ink transition-colors">REGULATORY METRICS</a>
           </div>
         </div>
       </footer>

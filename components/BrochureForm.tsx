@@ -59,10 +59,10 @@ export default function BrochureForm() {
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-16" id="request-brochure">
       <div className="text-center mb-12">
-        <span className="mono-tag text-xs text-gold border-b border-gold/30 pb-2 mb-4 inline-block">
+        <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-4 inline-block">
           EXQUISITE CATALOGUE
         </span>
-        <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-white font-medium mb-4">
+        <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-ink font-medium mb-4">
           Request Editorial Brochure
         </h2>
         <p className="text-silver max-w-xl mx-auto text-sm md:text-base leading-relaxed">
@@ -72,7 +72,7 @@ export default function BrochureForm() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         {/* Left: Product visual preview */}
-        <div className="lg:col-span-5 bg-charcoal border border-white/5 rounded-lg overflow-hidden flex flex-col justify-between p-8 relative min-h-[350px]">
+        <div className="lg:col-span-5 bg-white border border-black/5 rounded-lg overflow-hidden flex flex-col justify-between p-8 relative min-h-[350px]">
           <div className="absolute inset-0 z-0 opacity-40">
             <img
               src="/images/pegasus_luxury_salon.jpg"
@@ -80,12 +80,12 @@ export default function BrochureForm() {
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover grayscale contrast-125"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/80 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-white via-white/85 to-white/40"></div>
           </div>
 
           <div className="relative z-10">
-            <span className="font-mono text-[9px] text-gold uppercase tracking-widest block mb-2">printed publication</span>
-            <h4 className="editorial-text text-xl text-white font-medium mb-3">
+            <span className="font-mono text-[11px] text-accent uppercase tracking-widest block mb-2">printed publication</span>
+            <h4 className="editorial-text text-xl text-ink font-medium mb-3">
               The Art of Frictionless Control
             </h4>
             <p className="font-sans text-xs text-silver leading-relaxed max-w-xs">
@@ -93,36 +93,36 @@ export default function BrochureForm() {
             </p>
           </div>
 
-          <div className="relative z-10 border-t border-white/10 pt-6 mt-8">
+          <div className="relative z-10 border-t border-black/10 pt-6 mt-8">
             <div className="flex gap-4 text-left">
               <div>
-                <span className="font-mono text-[10px] text-white block">180 Pages</span>
-                <span className="font-sans text-[9px] text-silver block">Premium Print</span>
+                <span className="font-mono text-[11px] text-ink block">180 Pages</span>
+                <span className="font-sans text-[11px] text-silver block">Premium Print</span>
               </div>
-              <div className="border-l border-white/10 pl-4">
-                <span className="font-mono text-[10px] text-white block">80+ Countries</span>
-                <span className="font-sans text-[9px] text-silver block">Global Distribution</span>
+              <div className="border-l border-black/10 pl-4">
+                <span className="font-mono text-[11px] text-ink block">80+ Countries</span>
+                <span className="font-sans text-[11px] text-silver block">Global Distribution</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Right: Multi-step form container */}
-        <div className="lg:col-span-7 bg-charcoal border border-white/5 p-8 md:p-10 rounded-lg flex flex-col justify-between">
+        <div className="lg:col-span-7 bg-white border border-black/5 p-8 md:p-10 rounded-lg flex flex-col justify-between">
           <AnimatePresence mode="wait">
             {!isSuccess ? (
               <form onSubmit={handleSubmit} className="flex flex-col h-full justify-between min-h-[340px]">
                 {/* Progress bar */}
                 <div className="mb-8">
-                  <div className="flex justify-between text-[10px] font-mono uppercase text-silver mb-2">
+                  <div className="flex justify-between text-[11px] font-mono uppercase text-silver mb-2">
                     <span>Step {step} of 3</span>
                     <span>
                       {step === 1 ? 'Credential Details' : step === 2 ? 'Establishment Details' : 'Specification Selection'}
                     </span>
                   </div>
-                  <div className="w-full h-[2px] bg-white/10">
+                  <div className="w-full h-[2px] bg-black/5">
                     <motion.div
-                      className="h-full bg-gold"
+                      className="h-full bg-accent"
                       initial={{ width: '33.33%' }}
                       animate={{ width: `${step * 33.33}%` }}
                       transition={{ duration: 0.3 }}
@@ -151,7 +151,7 @@ export default function BrochureForm() {
                             onChange={handleInputChange}
                             className="w-full p-3.5 pl-10 custom-input rounded text-sm"
                           />
-                          <Clipboard className="w-4 h-4 text-white/30 absolute left-3 top-4" />
+                          <Clipboard className="w-4 h-4 text-ink/30 absolute left-3 top-4" />
                         </div>
                       </div>
 
@@ -167,7 +167,7 @@ export default function BrochureForm() {
                             onChange={handleInputChange}
                             className="w-full p-3.5 pl-10 custom-input rounded text-sm"
                           />
-                          <Mail className="w-4 h-4 text-white/30 absolute left-3 top-4" />
+                          <Mail className="w-4 h-4 text-ink/30 absolute left-3 top-4" />
                         </div>
                       </div>
 
@@ -177,7 +177,7 @@ export default function BrochureForm() {
                           name="role"
                           value={formData.role}
                           onChange={handleInputChange}
-                          className="w-full p-3.5 custom-input rounded text-sm bg-charcoal"
+                          className="w-full p-3.5 custom-input rounded text-sm bg-white"
                         >
                           <option value="stylist">Creative Stylist / Hairdresser</option>
                           <option value="owner">Salon Owner / Director</option>
@@ -209,7 +209,7 @@ export default function BrochureForm() {
                             onChange={handleInputChange}
                             className="w-full p-3.5 pl-10 custom-input rounded text-sm"
                           />
-                          <Building className="w-4 h-4 text-white/30 absolute left-3 top-4" />
+                          <Building className="w-4 h-4 text-ink/30 absolute left-3 top-4" />
                         </div>
                       </div>
 
@@ -242,7 +242,7 @@ export default function BrochureForm() {
                           name="interest"
                           value={formData.interest}
                           onChange={handleInputChange}
-                          className="w-full p-3.5 custom-input rounded text-sm bg-charcoal"
+                          className="w-full p-3.5 custom-input rounded text-sm bg-white"
                         >
                           <option value="all">Full Comprehensive Master Catalogue</option>
                           <option value="rubber">Hard Rubber (Vulcanite & Flexinite) Spec Sheets</option>
@@ -258,7 +258,7 @@ export default function BrochureForm() {
                           id="marketingConsent"
                           checked={formData.marketingConsent}
                           onChange={handleInputChange}
-                          className="mt-1 h-4 w-4 rounded border-white/10 bg-black/20 text-gold focus:ring-gold"
+                          className="mt-1 h-4 w-4 rounded border-black/10 bg-white/60 text-accent focus:ring-accent"
                         />
                         <label htmlFor="marketingConsent" className="font-sans text-xs text-silver leading-relaxed">
                           I consent to receive exclusive updates, technical specifications, and invitations to professional styling workshops from Pegasus.
@@ -269,12 +269,12 @@ export default function BrochureForm() {
                 </div>
 
                 {/* Form Navigation Controls */}
-                <div className="flex justify-between items-center border-t border-white/5 pt-6 mt-8">
+                <div className="flex justify-between items-center border-t border-black/5 pt-6 mt-8">
                   {step > 1 ? (
                     <button
                       type="button"
                       onClick={handlePrev}
-                      className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-silver hover:text-white transition-all"
+                      className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-silver hover:text-ink transition-all"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" /> Back
                     </button>
@@ -289,8 +289,8 @@ export default function BrochureForm() {
                       onClick={handleNext}
                       className={`flex items-center gap-1.5 px-6 py-3 rounded text-xs font-mono uppercase tracking-widest transition-all ${
                         isNextDisabled()
-                          ? 'bg-white/5 text-white/20 cursor-not-allowed'
-                          : 'bg-white text-black hover:bg-gold cursor-pointer'
+                          ? 'bg-black/[0.04] text-ink/20 cursor-not-allowed'
+                          : 'bg-ink text-paper hover:bg-accent hover:text-paper cursor-pointer'
                       }`}
                     >
                       Continue <ArrowRight className="w-3.5 h-3.5" />
@@ -299,7 +299,7 @@ export default function BrochureForm() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="flex items-center gap-1.5 px-6 py-3 rounded text-xs font-mono uppercase tracking-widest bg-gold text-black hover:bg-white hover:text-black transition-all cursor-pointer font-medium"
+                      className="flex items-center gap-1.5 px-6 py-3 rounded text-xs font-mono uppercase tracking-widest bg-accent text-paper hover:bg-ink hover:text-paper transition-all cursor-pointer font-medium"
                     >
                       {submitting ? 'Transmitting Request...' : 'Submit Credentials'} <ArrowRight className="w-3.5 h-3.5" />
                     </button>
@@ -313,15 +313,15 @@ export default function BrochureForm() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center py-8 flex flex-col items-center justify-center min-h-[340px]"
               >
-                <div className="w-12 h-12 bg-gold/10 border border-gold rounded-full flex items-center justify-center mb-6">
-                  <Check className="w-5 h-5 text-gold" />
+                <div className="w-12 h-12 bg-accent/10 border border-accent rounded-full flex items-center justify-center mb-6">
+                  <Check className="w-5 h-5 text-accent" />
                 </div>
-                <span className="mono-tag text-[9px] text-gold tracking-widest block mb-2">request approved</span>
-                <h3 className="editorial-text text-2xl md:text-3xl text-white font-medium mb-4">
+                <span className="mono-tag text-[11px] text-accent tracking-widest block mb-2">request approved</span>
+                <h3 className="editorial-text text-2xl md:text-3xl text-ink font-medium mb-4">
                   Credentials Verified
                 </h3>
                 <p className="font-sans text-xs text-silver max-w-sm mx-auto leading-relaxed mb-8">
-                  Thank you, {formData.name}. We have logged your request. A digital copy has been sent to <span className="text-white">{formData.email}</span>. Your physical print portfolio will ship shortly.
+                  Thank you, {formData.name}. We have logged your request. A digital copy has been sent to <span className="text-ink">{formData.email}</span>. Your physical print portfolio will ship shortly.
                 </p>
 
                 <a
@@ -330,9 +330,9 @@ export default function BrochureForm() {
                     e.preventDefault();
                     alert('Mock PDF brochure is generating and downloading... Your physical booklet has been placed in the postal queue!');
                   }}
-                  className="flex items-center gap-2 border border-white/10 hover:border-gold/30 px-6 py-3.5 rounded text-xs font-mono uppercase tracking-widest text-silver hover:text-white bg-black/30 hover:bg-black/60 transition-all duration-300"
+                  className="flex items-center gap-2 border border-black/10 hover:border-accent/30 px-6 py-3.5 rounded text-xs font-mono uppercase tracking-widest text-silver hover:text-ink bg-white/70 hover:bg-white transition-all duration-300"
                 >
-                  <FileText className="w-4 h-4 text-gold" /> Download Digital Catalogue
+                  <FileText className="w-4 h-4 text-accent" /> Download Digital Catalogue
                 </a>
               </motion.div>
             )}
