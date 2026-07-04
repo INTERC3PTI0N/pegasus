@@ -14,6 +14,7 @@ import {
 // Luxury components
 import FloatingComb from '@/components/FloatingComb';
 import BannerSlider from '@/components/BannerSlider';
+import VideoBanner from '@/components/VideoBanner';
 import AiAssistant from '@/components/AiAssistant';
 import BrochureForm from '@/components/BrochureForm';
 import Blog from '@/components/Blog';
@@ -277,12 +278,12 @@ export default function Home() {
           {/* Giant campaign wordmark — the comb floats over it */}
           {/* On desktop the wordmark sits ABOVE the comb (z-25 vs z-20) with a
               translucent fill, so the comb reads through the letterforms. */}
-          <div className="absolute inset-0 z-10 lg:z-[25] flex items-start lg:items-center justify-center select-none pointer-events-none pt-[16vh] lg:pt-0 lg:pb-[32vh]">
+          <div className="absolute inset-0 z-10 lg:z-[25] flex items-start justify-center select-none pointer-events-none pt-[14vh] lg:pt-[18vh]">
             <motion.h2
               initial={{ opacity: 0, letterSpacing: '0.1em' }}
               animate={{ opacity: 1, letterSpacing: '-0.04em' }}
               transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              className="display-text text-[16.5vw] text-ink lg:text-ink/[0.82] leading-none uppercase whitespace-nowrap"
+              className="display-text text-[clamp(3.25rem,15.5vw,13.5rem)] text-ink lg:text-ink/[0.82] leading-none uppercase whitespace-nowrap"
             >
               PEGASUS
             </motion.h2>
@@ -290,7 +291,7 @@ export default function Home() {
 
           {/* Editorial copy blocks — above the comb layer */}
           <div className="relative z-30 flex-1 flex flex-col justify-end">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end w-full max-w-[1600px] mx-auto">
               {/* Bottom-left: campaign statement */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -348,7 +349,7 @@ export default function Home() {
           </div>
 
           {/* Bottom Bar facts */}
-          <div className="relative z-30 border-t border-black/5 pt-6 mt-12 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="relative z-30 border-t border-black/5 pt-6 mt-12 flex flex-col md:flex-row justify-between items-center gap-4 max-w-[1600px] mx-auto w-full">
             <span className="mono-tag text-[11px] text-silver">
               Handcrafted by Presto Industries — Trusted globally
             </span>
@@ -361,6 +362,10 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+
+        {/* SECTION 1.25: FULL-WIDTH CINEMATIC VIDEO BANNER */}
+        <VideoBanner />
 
 
         {/* SECTION 1.5: CAMPAIGN BANNERS — standalone slider on mobile/tablet */}
