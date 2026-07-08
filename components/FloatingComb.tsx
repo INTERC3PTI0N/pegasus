@@ -31,10 +31,10 @@ interface Pose {
 // Docked pose for each section, in document order.
 const POSES: { id: string; pose: Pose }[] = [
   { id: 'hero',           pose: { x: 0,   y: 0,   rz: -4,  rx: 8,  ry: -6,  s: 0.6,  o: 0 } },
-  { id: 'philosophy',     pose: { x: 30,  y: 6,   rz: -10, rx: 16, ry: 12,  s: 0.34, o: 0.9 } },
+  { id: 'about',          pose: { x: 30,  y: 6,   rz: -10, rx: 16, ry: 12,  s: 0.34, o: 0.9 } },
   { id: 'products',       pose: { x: -40, y: -4,  rz: 10,  rx: 20, ry: -16, s: 0.24, o: 0.9 } },
   { id: 'technology',     pose: { x: 40,  y: -18, rz: 12,  rx: 24, ry: -14, s: 0.24, o: 0.9 } },
-  { id: 'about',          pose: { x: -40, y: 16,  rz: -12, rx: 22, ry: 16,  s: 0.24, o: 0.9 } },
+  { id: 'philosophy',     pose: { x: -40, y: 16,  rz: -12, rx: 22, ry: 16,  s: 0.24, o: 0.9 } },
   { id: 'sustainability', pose: { x: 40,  y: -22, rz: 12,  rx: 28, ry: -14, s: 0.22, o: 0.9 } },
   { id: 'journal',        pose: { x: -40, y: 26,  rz: -14, rx: 30, ry: 18,  s: 0.22, o: 0.9 } },
   { id: 'ritual',         pose: { x: 37,  y: -30, rz: 18,  rx: 32, ry: 12,  s: 0.22, o: 0.9 } },

@@ -136,47 +136,19 @@ export default function Home() {
         {/* Full-screen video hero */}
         <VideoBanner />
 
-        {/* 01 — Philosophy: centred statement, generous whitespace */}
-        <section id="philosophy" className="relative z-10 py-28 md:py-40 px-6 md:px-12 lg:px-20 bg-white">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center justify-center gap-4 mb-8"
-            >
-              <span className="mono-tag text-xs text-accent">01</span>
-              <span className="h-px w-10 bg-accent/40" />
-              <span className="mono-tag text-xs text-silver">Philosophy</span>
-            </motion.div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="editorial-text text-3xl md:text-5xl lg:text-[3.6rem] text-ink leading-[1.25]"
-            >
-              We believe a comb should be made like a{' '}
-              <span style={{ color: '#00adbb' }}>precision instrument</span> — not a
-              disposable novelty. Every tooth is saw-cut, hand-bevelled and polished
-              to protect the hair and the scalp it serves.
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="text-sm md:text-base text-silver leading-[1.9] max-w-xl mx-auto mt-10"
-            >
-              Since 1961, Presto Industries has engineered professional styling tools
-              trusted by hairdressers across the world. This is the craft behind
-              Pegasus — infinite styling, in every strand.
-            </motion.p>
-          </div>
-        </section>
+        {/* 01 — About / Heritage (alternating: image right) */}
+        <FeatureRow
+          id="about"
+          index="01"
+          kicker="Heritage"
+          sub="SINCE 1961"
+          title="Six decades of handcrafted precision."
+          body="Founded by Lookman Qadir in 1961, Presto Industries began saw-cutting and hand-polishing combs in 1977. After years researching hair textures and climates across the world, Pegasus launched in 2012 — the culmination of a craft passed from one generation of toolmakers to the next."
+          image="/images/pegasus_luxury_salon.jpg"
+          href="/#journal"
+          cta="Read Our Story"
+          reverse
+        />
 
         {/* 02 — Products: the three collections */}
         <section id="products" className="relative z-10 py-24 md:py-32 px-6 md:px-12 lg:px-20 bg-mist border-y border-black/5">
@@ -230,19 +202,47 @@ export default function Home() {
           cta="Discover the Technology"
         />
 
-        {/* 04 — About / Heritage (alternating: image right) */}
-        <FeatureRow
-          id="about"
-          index="04"
-          kicker="Heritage"
-          sub="SINCE 1961"
-          title="Six decades of handcrafted precision."
-          body="Founded by Lookman Qadir in 1961, Presto Industries began saw-cutting and hand-polishing combs in 1977. After years researching hair textures and climates across the world, Pegasus launched in 2012 — the culmination of a craft passed from one generation of toolmakers to the next."
-          image="/images/pegasus_luxury_salon.jpg"
-          href="/#journal"
-          cta="Read Our Story"
-          reverse
-        />
+        {/* 04 — Philosophy: centred statement, generous whitespace */}
+        <section id="philosophy" className="relative z-10 py-28 md:py-40 px-6 md:px-12 lg:px-20 bg-white">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-center justify-center gap-4 mb-8"
+            >
+              <span className="mono-tag text-xs text-accent">04</span>
+              <span className="h-px w-10 bg-accent/40" />
+              <span className="mono-tag text-xs text-silver">Philosophy</span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="editorial-text text-3xl md:text-5xl lg:text-[3.6rem] text-ink leading-[1.25]"
+            >
+              We believe a comb should be made like a{' '}
+              <span style={{ color: '#00adbb' }}>precision instrument</span> — not a
+              disposable novelty. Every tooth is saw-cut, hand-bevelled and polished
+              to protect the hair and the scalp it serves.
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="text-sm md:text-base text-silver leading-[1.9] max-w-xl mx-auto mt-10"
+            >
+              Since 1961, Presto Industries has engineered professional styling tools
+              trusted by hairdressers across the world. This is the craft behind
+              Pegasus — infinite styling, in every strand.
+            </motion.p>
+          </div>
+        </section>
 
         {/* 05 — Sustainability (alternating: image left) */}
         <FeatureRow
