@@ -1,4 +1,5 @@
 node_modules/
+docs/
 .next/
 coverage/
 .DS_Store

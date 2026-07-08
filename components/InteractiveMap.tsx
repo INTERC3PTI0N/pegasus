@@ -93,18 +93,7 @@ export default function InteractiveMap() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-16" id="global-contact">
-      <div className="text-center mb-12">
-        <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-4 inline-block">
-          GLOBAL PRESENCE
-        </span>
-        <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-ink font-medium mb-4">
-          Dealer & Corporate Enquiries
-        </h2>
-        <p className="text-silver max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-          Connecting professional salons, elite distributors, and retail groups worldwide with Presto Industries manufacturing support.
-        </p>
-      </div>
+    <div className="w-full max-w-6xl mx-auto px-4" id="global-contact">
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         {/* Left: Global Interactive Map */}

@@ -92,18 +92,7 @@ export default function AiAssistant() {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 py-16 relative" id="ai-styling-assistant">
-      <div className="text-center mb-12">
-        <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-4 inline-block">
-          ENGINEERING INTELLIGENCE
-        </span>
-        <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-ink font-medium mb-4">
-          Bespoke Styling Protocol
-        </h2>
-        <p className="text-silver max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-          Leverage our server-side trichology engine to map your specific hair characteristics into a luxurious daily combing and styling ritual.
-        </p>
-      </div>
+    <div className="w-full max-w-5xl mx-auto px-4 relative" id="ai-styling-assistant">
 
       <AnimatePresence mode="wait">
         {!loading && !routine && (

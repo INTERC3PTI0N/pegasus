@@ -102,19 +102,7 @@ That is why professional hairdressers across the world trust the Pegasus hard ru
   });
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-16" id="editorial-blog">
-      <div className="text-center mb-12">
-        <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-4 inline-block">
-          MAGAZINE & PERSPECTIVES
-        </span>
-        <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-ink font-medium mb-4">
-          The Pegasus Chronicle
-        </h2>
-        <p className="text-silver max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-          Explore technical insights, material science breakthroughs, and historical analyses from our engineering teams and leading trichologists.
-        </p>
-      </div>
-
+    <div className="w-full max-w-6xl mx-auto px-4" id="editorial-blog">
       {/* Filter and Search Bar */}
       <div className="flex flex-col md:flex-row gap-4 justify-between items-center border-b border-black/5 pb-8 mb-10">
         {/* Categories */}

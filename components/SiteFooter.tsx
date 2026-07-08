@@ -1,121 +1,124 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { ExternalLink } from 'lucide-react';
+import { Instagram, Facebook, Youtube, ArrowUp, ArrowUpRight } from 'lucide-react';
+
+const footerNav: { heading: string; links: { label: string; href: string; external?: boolean }[] }[] = [
+  {
+    heading: 'Products',
+    links: [
+      { label: 'Hard Rubber · Flexinite', href: '/collections/hard-rubber' },
+      { label: 'Cellulose Acetate', href: '/collections/cellulose' },
+      { label: 'Ecowood · StaticBlock', href: '/collections/ecowood' },
+    ],
+  },
+  {
+    heading: 'About',
+    links: [
+      { label: 'Heritage', href: '/#about' },
+      { label: 'Technology', href: '/#technology' },
+      { label: 'Sustainability', href: '/#sustainability' },
+      { label: 'Journal', href: '/#journal' },
+    ],
+  },
+  {
+    heading: 'Contact',
+    links: [
+      { label: 'Dealer Enquiries', href: '/#contact' },
+      { label: 'Request Brochure', href: '/#brochure' },
+      { label: 'Styling Ritual', href: '/#ritual' },
+    ],
+  },
+];
 
 export default function SiteFooter() {
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
+  const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="bg-white border-t border-black/5 pt-20 pb-10 px-6 md:px-12 lg:px-24 relative overflow-hidden">
-
-      {/* Massive PEGASUS wordmark — the comb comes home to rest across it */}
-      <div className="text-center mb-16 select-none pointer-events-none relative">
-        <h2 className="display-text text-[12vw] text-ink/[0.05] tracking-[0.08em] leading-none uppercase">
-          PEGASUS
-        </h2>
-        <span className="mono-tag text-xs text-accent/70 tracking-[0.3em] block -mt-4">
-          INFINITE STYLING
-        </span>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 mb-12 border-b border-black/5 relative z-30">
-        {/* Col 1: Brand + Newsletter */}
-        <div className="space-y-4">
-          <img
-            src="/images/pegasus-logo.png"
-            alt="PEGASUS — Infinite Styling"
-            className="h-10 w-auto"
-            draggable={false}
-          />
-          <p className="text-xs text-silver leading-relaxed">
-            Receive periodic briefs on material science breakthroughs, professional tool launches, and exclusive salon masterclass guides.
-          </p>
-
-          {newsletterSubscribed ? (
-            <div className="bg-accent/10 border border-accent p-3 text-center text-xs text-ink">
-              Verified. You are on the registry.
-            </div>
-          ) : (
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Corporate email"
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
-                className="p-3 custom-input text-xs flex-1"
-              />
-              <button
-                onClick={() => {
-                  if (newsletterEmail.includes('@')) {
-                    setNewsletterSubscribed(true);
-                  }
-                }}
-                className="px-4 py-3 bg-ink text-white hover:bg-accent transition-colors mono-tag text-xs cursor-pointer"
-              >
-                Join
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* Col 2: Atelier links */}
-        <div className="space-y-4 lg:pl-12">
-          <span className="mono-tag text-[11px] text-accent block">Atelier</span>
-          <ul className="space-y-2 text-xs text-silver">
-            <li><Link href="/" className="hover:text-ink transition-all cursor-pointer">The Campaign</Link></li>
-            <li><Link href="/#about-timeline" className="hover:text-ink transition-all cursor-pointer">Presto Chronicles</Link></li>
-            <li><Link href="/#core-technologies" className="hover:text-ink transition-all cursor-pointer">Patented Technologies</Link></li>
-            <li><Link href="/#ai-styling-assistant" className="hover:text-ink transition-all text-accent cursor-pointer">Custom Regimens</Link></li>
-            <li><Link href="/#editorial-blog" className="hover:text-ink transition-all cursor-pointer">The Pegasus Chronicle</Link></li>
-          </ul>
-        </div>
-
-        {/* Col 3: Collections */}
-        <div className="space-y-4 lg:pl-12">
-          <span className="mono-tag text-[11px] text-accent block">Collections</span>
-          <ul className="space-y-2 text-xs text-silver">
-            <li><Link href="/collections/hard-rubber" className="hover:text-ink transition-all cursor-pointer">Hard Rubber · Flexinite</Link></li>
-            <li><Link href="/collections/cellulose" className="hover:text-ink transition-all cursor-pointer">Cellulose Acetate</Link></li>
-            <li><Link href="/collections/ecowood" className="hover:text-ink transition-all cursor-pointer">Ecowood · StaticBlock</Link></li>
-            <li><Link href="/#request-brochure" className="hover:text-ink transition-all cursor-pointer">Tactile Catalog Portfolio</Link></li>
-            <li>
-              <a href="https://www.pegasushairtools.com" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-all flex items-center gap-1">
-                pegasushairtools.com <ExternalLink className="w-3 h-3 text-accent" />
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Col 4: Address / Contact */}
-        <div className="space-y-4 text-xs text-silver">
-          <span className="mono-tag text-[11px] text-accent block">Mumbai Headquarters</span>
-          <p>
-            Presto Industries<br />
-            215/216, Vasan Udyog Bhavan, 2nd Floor,<br />
-            Senapati Bapat Marg, opp. Phoenix Mill,<br />
-            Lower Parel, Mumbai, Maharashtra 400013
-          </p>
-          <p className="space-y-1">
-            <a href="tel:+912243151400" className="hover:text-ink transition-colors block">+91 22431 51400</a>
-            <a href="mailto:info@pegasushairtools.com" className="hover:text-ink transition-colors block">info@pegasushairtools.com</a>
-          </p>
+    <footer className="relative bg-white border-t border-black/5 pt-20 pb-10 px-6 md:px-12 lg:px-20">
+      {/* Centred brand block */}
+      <div className="flex flex-col items-center text-center gap-6 mb-16">
+        <Link href="/" className="cursor-pointer">
+          <img src="/images/pegasus-logo.png" alt="PEGASUS — Infinite Styling" className="h-11 w-auto" draggable={false} />
+        </Link>
+        <p className="text-xs text-silver max-w-sm leading-relaxed">
+          Professional hair styling tools, handcrafted by Presto Industries since 1961.
+        </p>
+        <div className="flex items-center gap-4">
+          {[
+            { Icon: Instagram, label: 'Instagram' },
+            { Icon: Facebook, label: 'Facebook' },
+            { Icon: Youtube, label: 'YouTube' },
+          ].map(({ Icon, label }) => (
+            <a
+              key={label}
+              href="https://www.pegasushairtools.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-ink/60 hover:text-white hover:bg-accent hover:border-accent transition-all"
+            >
+              <Icon className="w-4 h-4" />
+            </a>
+          ))}
         </div>
       </div>
 
-      {/* Copyright / Legal Footer */}
-      <div className="flex flex-col md:flex-row justify-between items-center text-[11px] mono-tag text-silver/70 gap-4 relative z-30">
-        <span>
-          © {new Date().getFullYear()} PEGASUS HAIR TOOLS. A PRESTO INDUSTRIES BRAND.
-        </span>
+      {/* Nav columns */}
+      <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-8 pb-12 mb-10 border-b border-black/5">
+        {footerNav.map((col) => (
+          <div key={col.heading} className="space-y-4 text-center md:text-left">
+            <span className="mono-tag text-[11px] text-accent block">{col.heading}</span>
+            <ul className="space-y-2.5">
+              {col.links.map((l) => (
+                <li key={l.label}>
+                  <Link href={l.href} className="text-xs text-silver hover:text-ink transition-colors cursor-pointer">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      {/* Online shop + language */}
+      <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 mb-10">
+        <a
+          href="https://www.pegasushairtools.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center gap-2 mono-tag text-[11px] px-6 py-3 border border-ink/20 text-ink hover:bg-ink hover:text-white transition-all"
+        >
+          Online Shop
+          <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </a>
+        <div className="flex items-center gap-2 mono-tag text-[11px] text-ink/60">
+          <span className="text-accent">EN</span>
+          <span className="opacity-40">/</span>
+          <span className="hover:text-ink transition-colors cursor-pointer">JP</span>
+        </div>
+      </div>
+
+      {/* Legal */}
+      <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] mono-tag text-silver/70">
+        <span>© {new Date().getFullYear()} PEGASUS HAIR TOOLS · A PRESTO INDUSTRIES BRAND</span>
         <div className="flex gap-6">
-          <a href="#" className="hover:text-ink transition-colors">PRIVACY REGISTRY</a>
-          <a href="#" className="hover:text-ink transition-colors">TRADEMARKS</a>
-          <a href="#" className="hover:text-ink transition-colors">REGULATORY METRICS</a>
+          <a href="#" className="hover:text-ink transition-colors">Privacy</a>
+          <a href="#" className="hover:text-ink transition-colors">Terms</a>
         </div>
       </div>
+
+      {/* Back-to-top */}
+      <button
+        onClick={scrollTop}
+        aria-label="Back to top"
+        className="group absolute right-6 md:right-10 -top-6 w-12 h-12 bg-ink text-white hover:bg-accent flex items-center justify-center transition-colors cursor-pointer"
+      >
+        <ArrowUp className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
+        <span className="sr-only">TOP</span>
+      </button>
     </footer>
   );
 }

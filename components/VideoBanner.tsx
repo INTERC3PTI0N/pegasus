@@ -3,18 +3,17 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'motion/react';
-import { ArrowRight } from 'lucide-react';
 
 /**
- * Full-width cinematic video banner shown directly beneath the hero.
- * The clip is a muted, looping stock reference of professional hair styling.
- * Copy sits over a soft ink gradient so it stays legible on any frame.
+ * Full-viewport cinematic video hero. A muted, looping reference clip of
+ * professional styling sits full-bleed with a centred, minimalist overlay
+ * and a scroll cue — the opening banner of the editorial layout.
  */
 export default function VideoBanner() {
   return (
     <section
-      id="film-banner"
-      className="relative z-30 w-full h-[70vh] min-h-[440px] overflow-hidden bg-ink"
+      id="hero"
+      className="relative z-40 w-full h-[100svh] min-h-[560px] overflow-hidden bg-ink"
     >
       <video
         className="absolute inset-0 w-full h-full object-cover"
@@ -27,46 +26,79 @@ export default function VideoBanner() {
         <source src="/videos/hair-banner.mp4" type="video/mp4" />
       </video>
 
-      {/* Legibility gradients — darker on the left where the copy lives */}
-      <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-ink/10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-ink/20" />
+      {/* Legibility wash */}
+      <div className="absolute inset-0 bg-ink/45" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-ink/40" />
 
-      <div className="relative z-10 h-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col justify-center">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-xl space-y-6"
+      {/* Centred hero copy */}
+      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+        <motion.span
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="mono-tag text-[11px] md:text-xs text-white/80 mb-6"
         >
-          <span className="mono-tag text-xs text-white/70 border-b border-accent/60 pb-2 inline-block">
-            INFINITE STYLING IN MOTION
-          </span>
-          <h2 className="editorial-text text-4xl md:text-5xl lg:text-6xl text-white leading-[1.05]">
-            Where Precision Meets the Chair
-          </h2>
-          <p className="text-sm md:text-base text-white/75 leading-relaxed max-w-md">
-            Seamless, hand-polished teeth glide through every texture — the quiet
-            craft behind salon-perfect results, powered by GlamLock, Flexinite and
-            StaticBlock technologies.
-          </p>
-          <div className="flex flex-wrap gap-4 pt-2">
-            <Link
-              href="/#product-collections"
-              className="group flex items-center gap-2 bg-white text-ink hover:bg-accent hover:text-white px-7 py-3.5 mono-tag text-xs transition-colors cursor-pointer"
-            >
-              Explore Collections
-              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link
-              href="/#core-technologies"
-              className="flex items-center gap-2 border border-white/40 text-white hover:border-white px-7 py-3.5 mono-tag text-xs transition-colors cursor-pointer"
-            >
-              The Technology
-            </Link>
-          </div>
+          PROFESSIONAL HAIR TOOLS · SINCE 1961
+        </motion.span>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="editorial-text text-white text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.02] max-w-5xl"
+        >
+          Infinite Styling,
+          <br />
+          Handcrafted.
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="text-sm md:text-base text-white/75 leading-relaxed max-w-lg mt-7"
+        >
+          Seamless, hand-polished combs engineered by Presto Industries — where
+          precision, craft and material science meet the professional&rsquo;s chair.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-wrap gap-4 justify-center mt-10"
+        >
+          <Link
+            href="/#products"
+            className="bg-white text-ink hover:bg-accent hover:text-white px-8 py-4 mono-tag text-xs transition-colors cursor-pointer"
+          >
+            Explore Products
+          </Link>
+          <Link
+            href="/#technology"
+            className="border border-white/45 text-white hover:bg-white hover:text-ink px-8 py-4 mono-tag text-xs transition-colors cursor-pointer"
+          >
+            The Technology
+          </Link>
         </motion.div>
       </div>
+
+      {/* Scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.3 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+      >
+        <span className="mono-tag text-[10px] text-white/60">SCROLL</span>
+        <span className="relative h-10 w-px bg-white/25 overflow-hidden">
+          <motion.span
+            className="absolute inset-x-0 top-0 h-4 bg-white"
+            animate={{ y: [-16, 40] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </span>
+      </motion.div>
     </section>
   );
 }
