@@ -66,7 +66,7 @@ export default function CombCursor() {
           src="/images/comb.png"
           alt=""
           draggable={false}
-          style={{ scale: sScale, rotate: -20 }}
+          style={{ scale: sScale, rotate: 20 }}
           className="w-16 select-none drop-shadow-[0_5px_10px_rgba(16,16,20,0.4)]"
         />
       </div>
