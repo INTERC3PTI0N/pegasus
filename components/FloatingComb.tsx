@@ -37,7 +37,7 @@ const POSES: { id: string; pose: Pose }[] = [
   { id: 'philosophy',     pose: { x: -40, y: 16,  rz: -12, rx: 22, ry: 16,  s: 0.24, o: 0.9 } },
   { id: 'sustainability', pose: { x: 40,  y: -22, rz: 12,  rx: 28, ry: -14, s: 0.22, o: 0.9 } },
   { id: 'journal',        pose: { x: -40, y: 26,  rz: -14, rx: 30, ry: 18,  s: 0.22, o: 0.9 } },
-  { id: 'ritual',         pose: { x: 37,  y: -30, rz: 18,  rx: 32, ry: 12,  s: 0.22, o: 0.9 } },
+  { id: 'who-we-serve',   pose: { x: 37,  y: -30, rz: 18,  rx: 32, ry: 12,  s: 0.22, o: 0.9 } },
   { id: 'brochure',       pose: { x: -40, y: 24,  rz: -16, rx: 28, ry: 16,  s: 0.24, o: 0.9 } },
   { id: 'contact',        pose: { x: 37,  y: -28, rz: 10,  rx: 20, ry: -10, s: 0.22, o: 0.9 } },
 ];

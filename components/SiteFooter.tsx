@@ -27,7 +27,7 @@ const footerNav: { heading: string; links: { label: string; href: string; extern
     links: [
       { label: 'Dealer Enquiries', href: '/#contact' },
       { label: 'Request Brochure', href: '/#brochure' },
-      { label: 'Styling Ritual', href: '/#ritual' },
+      { label: 'Who We Serve', href: '/#who-we-serve' },
     ],
   },
 ];

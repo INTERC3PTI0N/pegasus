@@ -3,16 +3,24 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, Truck, Ship, Building2, ShoppingCart, Store, Scissors } from 'lucide-react';
 
 // Luxury components
 import FloatingComb from '@/components/FloatingComb';
 import VideoBanner from '@/components/VideoBanner';
 import FeatureRow from '@/components/FeatureRow';
-import AiAssistant from '@/components/AiAssistant';
 import BrochureForm from '@/components/BrochureForm';
 import Blog from '@/components/Blog';
 import InteractiveMap from '@/components/InteractiveMap';
+
+const whoWeServe = [
+  { label: 'Distributors', icon: Truck },
+  { label: 'Importers', icon: Ship },
+  { label: 'Masstige Brand', icon: Building2 },
+  { label: 'Super Markets', icon: ShoppingCart },
+  { label: 'Retail Outlets', icon: Store },
+  { label: 'Hair Salons', icon: Scissors },
+];
 
 const products = [
   {
@@ -224,10 +232,8 @@ export default function Home() {
               transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="editorial-text text-3xl md:text-5xl lg:text-[3.6rem] text-ink leading-[1.25]"
             >
-              We believe a comb should be made like a{' '}
-              <span style={{ color: '#00adbb' }}>precision instrument</span> — not a
-              disposable novelty. Every tooth is saw-cut, hand-bevelled and polished
-              to protect the hair and the scalp it serves.
+Pegasus precision crafted combs are created for the <span style={{ color: '#00adbb' }}>best stylists</span> in the world.
+We combine technology, craftsmanship, innovative colours and design.
             </motion.h2>
 
             <motion.p
@@ -265,13 +271,39 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 07 — Ritual (AI styling assistant) */}
-        <section id="ritual" className="relative z-10 py-24 md:py-32 px-6 md:px-12 lg:px-20 overflow-hidden">
+        {/* 07 — Who We Serve */}
+        <section id="who-we-serve" className="relative z-10 py-24 md:py-32 px-6 md:px-12 lg:px-20 overflow-hidden">
           <div className="absolute top-[20%] left-[10%] w-72 h-72 rounded-full bg-accent/5 blur-[80px] pointer-events-none" />
           <div className="absolute bottom-[20%] right-[10%] w-96 h-96 rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
-          <SectionLabel n="07" kicker="Bespoke Ritual" title="Your Styling Protocol" sub="Map your hair characteristics into a personalised daily combing and styling ritual." />
-          <div className="relative z-10">
-            <AiAssistant />
+          <SectionLabel
+            n="07"
+            kicker="Network"
+            title="Who We Serve"
+            sub="PEGASUS combs are backed by a strong marketing and communication support team, created to empower distributors and to power the brand ahead in both B2B and B2C markets."
+          />
+
+          <div className="relative z-10 max-w-[1400px] mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-12">
+            {whoWeServe.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  className="group flex flex-col items-center text-center px-4 lg:border-r border-black/10 last:border-r-0"
+                >
+                  <Icon
+                    className="w-12 h-12 md:w-14 md:h-14 text-ink/80 group-hover:text-accent transition-colors duration-300"
+                    strokeWidth={1}
+                  />
+                  <span className="mono-tag text-[11px] md:text-xs text-ink mt-5 group-hover:text-accent transition-colors duration-300">
+                    {item.label}
+                  </span>
+                </motion.div>
+              );
+            })}
           </div>
         </section>
 
