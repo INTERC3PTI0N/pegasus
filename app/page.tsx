@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Truck, Ship, Building2, ShoppingCart, Store, Scissors } from 'lucide-react';
 
 // Luxury components
-import FloatingComb from '@/components/FloatingComb';
 import VideoBanner from '@/components/VideoBanner';
 import FeatureRow from '@/components/FeatureRow';
 import BrochureForm from '@/components/BrochureForm';
@@ -95,9 +94,6 @@ export default function Home() {
     <div className="relative min-h-screen bg-white text-ink selection:bg-accent selection:text-white">
       {/* Luxury paper-noise overlay */}
       <div className="noise-overlay" />
-
-      {/* The signature comb — one object travelling the whole page in 3D */}
-      {!loading && <FloatingComb />}
 
       {/* Preloader */}
       <AnimatePresence>

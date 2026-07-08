@@ -40,6 +40,12 @@ html, body {
   color: #ffffff;
 }
 
+/* Custom comb cursor — hide the native cursor site-wide when active */
+html.comb-cursor,
+html.comb-cursor * {
+  cursor: none !important;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
