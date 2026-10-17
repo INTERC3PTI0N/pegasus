@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
+import type { SiteContent } from '@/lib/cms';
+import { submitEnquiry } from '@/app/actions';
 import { MapPin, Mail, Phone, Globe, ExternalLink, Send, Check } from 'lucide-react';
 
 interface MarketLocation {
@@ -15,10 +17,14 @@ interface MarketLocation {
   details: string;
 }
 
-export default function InteractiveMap() {
-  const [activeLoc, setActiveLoc] = useState<string>('mumbai');
+export default function InteractiveMap({ content }: { content: SiteContent['home.contact'] }) {
+  const [activeLoc, setActiveLoc] = useState<string>(
+    content.locations.some((l) => l.id === content.defaultLocation) ? content.defaultLocation : content.locations[0]?.id ?? ''
+  );
   const [enquiryType, setEnquiryType] = useState<'dealer' | 'business'>('dealer');
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
   const [enquiryForm, setEnquiryForm] = useState({
     businessName: '',
     contactName: '',
@@ -26,65 +32,30 @@ export default function InteractiveMap() {
     message: '',
   });
 
-  const locations: Record<string, MarketLocation> = {
-    paris: {
-      id: 'paris',
-      name: 'Paris',
-      role: 'Creative & Couture Division Office',
-      address: '24 Rue du Faubourg Saint-Honoré, 75008 Paris, France',
-      phone: '+33 (0) 1 44 55 66 00',
-      email: 'couture.paris@pegasushairtools.com',
-      coords: { x: 48.5, y: 38 },
-      details: 'Serving high-fashion runway stylists across France, Italy, and Spain.'
-    },
-    london: {
-      id: 'london',
-      name: 'London',
-      role: 'Creative Salon Academy & Logistics',
-      address: '18 Savile Row, Mayfair, London W1S 3JR, United Kingdom',
-      phone: '+44 (0) 20 7946 0958',
-      email: 'academy.uk@pegasushairtools.com',
-      coords: { x: 47, y: 35 },
-      details: 'The educational epicentre of Pegasus professional styling courses.'
-    },
-    newyork: {
-      id: 'newyork',
-      name: 'New York',
-      role: 'North American Logistics & Corporate HQ',
-      address: 'Fifth Avenue, Flatiron District, New York, NY 10010, USA',
-      phone: '+1 (212) 555-0199',
-      email: 'americas@pegasushairtools.com',
-      coords: { x: 28, y: 41 },
-      details: 'Direct distribution network and support for salon conglomerates in the US and Canada.'
-    },
-    tokyo: {
-      id: 'tokyo',
-      name: 'Tokyo',
-      role: 'Asia Pacific Distribution Center',
-      address: '5-Chome Minami-Aoyama, Minato City, Tokyo 107-0062, Japan',
-      phone: '+81 3-5555-0143',
-      email: 'apac.tokyo@pegasushairtools.com',
-      coords: { x: 82, y: 44 },
-      details: 'Connecting elite Japanese hairdressers with German precision engineering.'
-    },
-    mumbai: {
-      id: 'mumbai',
-      name: 'Mumbai',
-      role: 'Presto Industries Headquarters & Works',
-      address: '215/216, Vasan Udyog Bhavan, 2nd Floor, Senapati Bapat Marg, opp. Phoenix Mill, Lower Parel, Mumbai, Maharashtra 400013',
-      phone: '+91 22431 51400',
-      email: 'info@pegasushairtools.com',
-      coords: { x: 66, y: 52 },
-      details: 'Where our six-decade manufacturing legacy and FLEXINITE material research resides.'
-    }
-  };
+  const locations: Record<string, MarketLocation> = Object.fromEntries(
+    content.locations.map(({ mapX, mapY, ...l }) => [l.id, { ...l, coords: { x: mapX, y: mapY } }])
+  );
+
+  const loc: MarketLocation = locations[activeLoc] ??
+    Object.values(locations)[0] ?? { id: '', name: '', role: '', address: '', phone: '', email: '', details: '', coords: { x: 0, y: 0 } };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setEnquiryForm({ ...enquiryForm, [e.target.name]: e.target.value });
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSending(true);
+    setFormError(null);
+    const res = await submitEnquiry({
+      kind: enquiryType,
+      company: enquiryForm.businessName,
+      name: enquiryForm.contactName,
+      email: enquiryForm.email,
+      message: enquiryForm.message,
+    });
+    setSending(false);
+    if (!res.ok) return setFormError(res.error ?? 'Something went wrong. Please try again.');
     setFormSubmitted(true);
     setTimeout(() => {
       setFormSubmitted(false);
@@ -149,10 +120,10 @@ export default function InteractiveMap() {
             <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur border border-black/10 p-4 rounded max-w-xs">
               <span className="font-mono text-[10px] text-accent uppercase tracking-wider block mb-1">active coordinate</span>
               <h4 className="font-sans text-xs text-ink font-medium">
-                {locations[activeLoc].name} Terminal Map
+                {loc.name} Terminal Map
               </h4>
               <p className="font-sans text-[11px] text-silver mt-1 leading-normal">
-                {locations[activeLoc].details}
+                {loc.details}
               </p>
             </div>
           </div>
@@ -160,18 +131,18 @@ export default function InteractiveMap() {
           {/* Location details card */}
           <div className="relative z-10 border-t border-black/10 pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <h4 className="font-sans text-xs text-ink font-medium mb-1">{locations[activeLoc].role}</h4>
+              <h4 className="font-sans text-xs text-ink font-medium mb-1">{loc.role}</h4>
               <p className="font-sans text-xs text-silver leading-relaxed flex items-start gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-accent shrink-0 mt-0.5" />
-                {locations[activeLoc].address}
+                {loc.address}
               </p>
             </div>
             <div className="space-y-1 sm:pl-4 border-l border-black/5">
-              <a href={`tel:${locations[activeLoc].phone}`} className="font-sans text-xs text-silver hover:text-ink flex items-center gap-1.5">
-                <Phone className="w-3.5 h-3.5 text-accent" /> {locations[activeLoc].phone}
+              <a href={`tel:${loc.phone}`} className="font-sans text-xs text-silver hover:text-ink flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-accent" /> {loc.phone}
               </a>
-              <a href={`mailto:${locations[activeLoc].email}`} className="font-sans text-xs text-silver hover:text-ink flex items-center gap-1.5 break-all">
-                <Mail className="w-3.5 h-3.5 text-accent" /> {locations[activeLoc].email}
+              <a href={`mailto:${loc.email}`} className="font-sans text-xs text-silver hover:text-ink flex items-center gap-1.5 break-all">
+                <Mail className="w-3.5 h-3.5 text-accent" /> {loc.email}
               </a>
             </div>
           </div>
@@ -205,8 +176,8 @@ export default function InteractiveMap() {
 
             <p className="font-sans text-xs text-silver leading-relaxed mb-6">
               {enquiryType === 'dealer'
-                ? 'Register interest to become an authorized salon distributor or retail partner. Receive priority allocations on high-demand FLEXINITE collections.'
-                : 'For custom brand integrations, education partnerships, fashion-week runway sponsorship, or corporate bulk procurement orders.'}
+                ? content.dealerText
+                : content.businessText}
             </p>
 
             <form onSubmit={handleFormSubmit} className="space-y-4">
@@ -273,10 +244,16 @@ export default function InteractiveMap() {
               ) : (
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-ink text-paper hover:bg-accent hover:text-paper transition-colors font-mono text-xs uppercase tracking-widest rounded flex items-center justify-center gap-2 cursor-pointer"
+                  disabled={sending}
+                  className="w-full py-3.5 bg-ink text-paper hover:bg-accent hover:text-paper transition-colors font-mono text-xs uppercase tracking-widest rounded flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
                 >
-                  Transmit Message <Send className="w-3.5 h-3.5" />
+                  {sending ? 'Sending…' : 'Transmit Message'} <Send className="w-3.5 h-3.5" />
                 </button>
+              )}
+              {formError && (
+                <p role="alert" className="text-xs text-red-600">
+                  {formError}
+                </p>
               )}
             </form>
           </div>

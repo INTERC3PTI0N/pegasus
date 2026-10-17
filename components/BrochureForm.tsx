@@ -2,9 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, ArrowLeft, Mail, Building, Clipboard, Check, FileText } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Mail, Building, Clipboard, Check } from 'lucide-react';
+import type { SiteContent } from '@/lib/cms';
+import { submitEnquiry } from '@/app/actions';
 
-export default function BrochureForm() {
+export default function BrochureForm({ content: b }: { content: SiteContent['home.brochure'] }) {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: '',
@@ -17,6 +19,7 @@ export default function BrochureForm() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleNext = () => {
     if (step < 3) setStep((prev) => prev + 1);
@@ -36,14 +39,23 @@ export default function BrochureForm() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    // Simulate premium registration logic
-    setTimeout(() => {
-      setSubmitting(false);
-      setIsSuccess(true);
-    }, 1800);
+    setError(null);
+    const res = await submitEnquiry({
+      kind: 'brochure',
+      name: formData.name,
+      email: formData.email,
+      role: formData.role,
+      company: formData.salonName,
+      country: formData.country,
+      interest: formData.interest,
+      marketingConsent: formData.marketingConsent,
+    });
+    setSubmitting(false);
+    if (res.ok) setIsSuccess(true);
+    else setError(res.error ?? 'Something went wrong. Please try again.');
   };
 
   const isNextDisabled = () => {
@@ -64,8 +76,8 @@ export default function BrochureForm() {
         <div className="lg:col-span-5 bg-white border border-black/5 rounded-lg overflow-hidden flex flex-col justify-between p-8 relative min-h-[350px]">
           <div className="absolute inset-0 z-0 opacity-40">
             <img
-              src="/images/pegasus_luxury_salon.jpg"
-              alt="Luxury Salon Setup"
+              src={b.cardImage}
+              alt=""
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover grayscale contrast-125"
             />
@@ -73,24 +85,24 @@ export default function BrochureForm() {
           </div>
 
           <div className="relative z-10">
-            <span className="font-mono text-[11px] text-accent uppercase tracking-widest block mb-2">printed publication</span>
+            <span className="font-mono text-[11px] text-accent uppercase tracking-widest block mb-2">{b.cardKicker}</span>
             <h4 className="editorial-text text-xl text-ink font-medium mb-3">
-              The Art of Frictionless Control
+              {b.cardTitle}
             </h4>
             <p className="font-sans text-xs text-silver leading-relaxed max-w-xs">
-              Printed on matte eco-linen tactile paper. Featuring high-resolution technical diagrams of FLEXINITE, GLAMLOCK and STATICBLOCK combs.
+              {b.cardText}
             </p>
           </div>
 
           <div className="relative z-10 border-t border-black/10 pt-6 mt-8">
             <div className="flex gap-4 text-left">
               <div>
-                <span className="font-mono text-[11px] text-ink block">180 Pages</span>
-                <span className="font-sans text-[11px] text-silver block">Premium Print</span>
+                <span className="font-mono text-[11px] text-ink block">{b.stat1Value}</span>
+                <span className="font-sans text-[11px] text-silver block">{b.stat1Label}</span>
               </div>
               <div className="border-l border-black/10 pl-4">
-                <span className="font-mono text-[11px] text-ink block">80+ Countries</span>
-                <span className="font-sans text-[11px] text-silver block">Global Distribution</span>
+                <span className="font-mono text-[11px] text-ink block">{b.stat2Value}</span>
+                <span className="font-sans text-[11px] text-silver block">{b.stat2Label}</span>
               </div>
             </div>
           </div>
@@ -257,6 +269,12 @@ export default function BrochureForm() {
                   )}
                 </div>
 
+                {error && (
+                  <p role="alert" className="mt-6 text-xs text-red-600">
+                    {error}
+                  </p>
+                )}
+
                 {/* Form Navigation Controls */}
                 <div className="flex justify-between items-center border-t border-black/5 pt-6 mt-8">
                   {step > 1 ? (
@@ -305,24 +323,13 @@ export default function BrochureForm() {
                 <div className="w-12 h-12 bg-accent/10 border border-accent rounded-full flex items-center justify-center mb-6">
                   <Check className="w-5 h-5 text-accent" />
                 </div>
-                <span className="mono-tag text-[11px] text-accent tracking-widest block mb-2">request approved</span>
+                <span className="mono-tag text-[11px] text-accent tracking-widest block mb-2">request received</span>
                 <h3 className="editorial-text text-2xl md:text-3xl text-ink font-medium mb-4">
-                  Credentials Verified
+                  We&rsquo;ll be in touch
                 </h3>
                 <p className="font-sans text-xs text-silver max-w-sm mx-auto leading-relaxed mb-8">
-                  Thank you, {formData.name}. We have logged your request. A digital copy has been sent to <span className="text-ink">{formData.email}</span>. Your physical print portfolio will ship shortly.
+                  Thanks, {formData.name}. Our team will send your catalogue details to <span className="text-ink">{formData.email}</span>.
                 </p>
-
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    alert('Mock PDF brochure is generating and downloading... Your physical booklet has been placed in the postal queue!');
-                  }}
-                  className="flex items-center gap-2 border border-black/10 hover:border-accent/30 px-6 py-3.5 rounded text-xs font-mono uppercase tracking-widest text-silver hover:text-ink bg-white/70 hover:bg-white transition-all duration-300"
-                >
-                  <FileText className="w-4 h-4 text-accent" /> Download Digital Catalogue
-                </a>
               </motion.div>
             )}
           </AnimatePresence>

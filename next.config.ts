@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Images/videos uploaded in the Pegasus admin are stored as /cms-media/<id> and served by the admin.
+  async rewrites() {
+    const cms = process.env.CMS_URL?.replace(/\/$/, '');
+    return cms ? [{ source: '/cms-media/:id', destination: `${cms}/api/site/media/:id` }] : [];
+  },
   output: 'standalone',
   transpilePackages: ['motion'],
   webpack: (config, {dev}) => {

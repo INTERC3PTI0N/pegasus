@@ -3,13 +3,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'motion/react';
+import type { SiteContent } from '@/lib/cms';
 
 /**
  * Full-viewport cinematic video hero. A muted, looping reference clip of
  * professional styling sits full-bleed with a centred, minimalist overlay
  * and a scroll cue — the opening banner of the editorial layout.
  */
-export default function VideoBanner() {
+export default function VideoBanner({ content: h }: { content: SiteContent['home.hero'] }) {
   return (
     <section
       id="hero"
@@ -21,9 +22,10 @@ export default function VideoBanner() {
         muted
         loop
         playsInline
-        poster="/images/pegasus_luxury_salon.jpg"
+        poster={h.poster}
+        key={h.video}
       >
-        <source src="/videos/hair-banner.mp4" type="video/mp4" />
+        <source src={h.video} type="video/mp4" />
       </video>
 
       {/* Legibility wash */}
@@ -38,7 +40,7 @@ export default function VideoBanner() {
           transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="mono-tag text-[11px] md:text-xs text-white/80 mb-6"
         >
-          PROFESSIONAL HAIR TOOLS · SINCE 1961
+          {h.kicker}
         </motion.span>
 
         <motion.h1
@@ -47,9 +49,9 @@ export default function VideoBanner() {
           transition={{ duration: 1.1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
           className="editorial-text text-white text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.02] max-w-5xl"
         >
-          Infinite Styling,
+          {h.titleLine1}
           <br />
-          Handcrafted.
+          {h.titleLine2}
         </motion.h1>
 
         <motion.p
@@ -58,8 +60,7 @@ export default function VideoBanner() {
           transition={{ duration: 1, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-sm md:text-base text-white/75 leading-relaxed max-w-lg mt-7"
         >
-          Seamless, hand-polished combs engineered by Presto Industries — where
-          precision, craft and material science meet the professional&rsquo;s chair.
+          {h.subtitle}
         </motion.p>
 
         <motion.div
@@ -69,16 +70,16 @@ export default function VideoBanner() {
           className="flex flex-wrap gap-4 justify-center mt-10"
         >
           <Link
-            href="/#products"
+            href={h.primaryCtaHref}
             className="bg-white text-ink hover:bg-accent hover:text-white px-8 py-4 mono-tag text-xs transition-colors cursor-pointer"
           >
-            Explore Products
+            {h.primaryCtaLabel}
           </Link>
           <Link
-            href="/#technology"
+            href={h.secondaryCtaHref}
             className="border border-white/45 text-white hover:bg-white hover:text-ink px-8 py-4 mono-tag text-xs transition-colors cursor-pointer"
           >
-            The Technology
+            {h.secondaryCtaLabel}
           </Link>
         </motion.div>
       </div>

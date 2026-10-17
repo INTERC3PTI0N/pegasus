@@ -5,21 +5,10 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'motion/react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 
-const navLinks = [
-  { label: 'Products', href: '/#products' },
-  { label: 'Technology', href: '/#technology' },
-  { label: 'About', href: '/#about' },
-  { label: 'Journal', href: '/#journal' },
-  { label: 'Contact', href: '/#contact' },
-];
+import type { SiteContent } from '@/lib/cms';
 
-const collectionLinks = [
-  { label: 'Hard Rubber · Flexinite', href: '/collections/hard-rubber' },
-  { label: 'Cellulose Acetate', href: '/collections/cellulose' },
-  { label: 'Ecowood · StaticBlock', href: '/collections/ecowood' },
-];
-
-export default function SiteHeader() {
+export default function SiteHeader({ content }: { content: SiteContent['global.header'] }) {
+  const { navLinks, collectionLinks, logo, shopLabel, shopUrl } = content;
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [lang, setLang] = useState<'EN' | 'JP'>('EN');
@@ -47,7 +36,7 @@ export default function SiteHeader() {
           {/* Logo — top left */}
           <Link href="/" className="cursor-pointer shrink-0" onClick={() => setMenuOpen(false)}>
             <img
-              src="/images/pegasus-logo.png"
+              src={logo}
               alt="PEGASUS — Infinite Styling"
               className={`w-auto transition-all duration-500 ${solid ? 'h-8 md:h-9' : 'h-9 md:h-11'} ${
                 solid ? '' : 'drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]'
@@ -90,7 +79,7 @@ export default function SiteHeader() {
             </div>
 
             <a
-              href="https://www.pegasushairtools.com"
+              href={shopUrl}
               target="_blank"
               rel="noopener noreferrer"
               className={`group inline-flex items-center gap-1.5 mono-tag text-[11px] px-5 py-2.5 border transition-all cursor-pointer ${
@@ -99,7 +88,7 @@ export default function SiteHeader() {
                   : 'border-white/50 text-white hover:bg-white hover:text-ink'
               }`}
             >
-              Online Shop
+              {shopLabel}
               <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </div>
@@ -162,12 +151,12 @@ export default function SiteHeader() {
 
             <div className="border-t border-black/5 pt-6 flex items-center justify-between">
               <a
-                href="https://www.pegasushairtools.com"
+                href={shopUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 mono-tag text-[11px] px-5 py-2.5 border border-ink/20 text-ink"
               >
-                Online Shop <ArrowUpRight className="w-3.5 h-3.5" />
+                {shopLabel} <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
               <div className="flex items-center gap-2 mono-tag text-[11px] text-ink/60">
                 <button onClick={() => setLang('EN')} className={lang === 'EN' ? 'text-accent' : ''}>EN</button>

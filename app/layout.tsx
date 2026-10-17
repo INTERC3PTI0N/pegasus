@@ -4,6 +4,7 @@ import './globals.css'; // Global styles
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import CombCursor from '@/components/CombCursor';
+import { getContent, isPreview } from '@/lib/cms';
 
 const jost = Jost({
   subsets: ['latin'],
@@ -19,19 +20,28 @@ const cormorant = Cormorant_Garamond({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: 'PEGASUS Hair Tools — INFINITE STYLING',
-  description: 'The official premium digital platform for Pegasus Hair Tools, engineering professional styling tools since 1961. Experience the craftsmanship of Flexinite technology.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { 'global.seo': seo } = await getContent();
+  return { title: seo.siteTitle, description: seo.siteDescription };
+}
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
+export default async function RootLayout({children}: {children: React.ReactNode}) {
+  const content = await getContent();
+  const preview = await isPreview();
+
   return (
     <html lang="en" className={`${jost.variable} ${cormorant.variable}`}>
       <body suppressHydrationWarning className="bg-white text-ink antialiased overflow-x-hidden">
+        {preview && (
+          <div className="fixed bottom-4 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 bg-ink text-white px-4 py-2 mono-tag text-[11px] shadow-lg">
+            Preview — showing unpublished drafts
+            <a href="/api/preview/exit" className="underline hover:text-accent">Exit preview</a>
+          </div>
+        )}
         <CombCursor />
-        <SiteHeader />
+        <SiteHeader content={content['global.header']} />
         {children}
-        <SiteFooter />
+        <SiteFooter content={content['global.footer']} header={content['global.header']} />
       </body>
     </html>
   );
