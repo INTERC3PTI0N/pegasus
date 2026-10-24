@@ -20,7 +20,7 @@ export default function SiteFooter({
       {/* Centred brand block */}
       <div className="flex flex-col items-center text-center gap-6 mb-16">
         <Link href="/" className="cursor-pointer">
-          <img src={header.logo} alt="PEGASUS — Infinite Styling" className="h-11 w-auto" draggable={false} />
+          <img src={header.logo} alt="PEGASUS — Mastery in Your Hands" className="h-16 w-auto" draggable={false} />
         </Link>
         <p className="text-xs text-silver max-w-sm leading-relaxed">
           {content.tagline}

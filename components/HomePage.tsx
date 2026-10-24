@@ -75,7 +75,7 @@ export default function HomePage({ content }: { content: SiteContent }) {
               <span className="mono-tag text-[11px] text-accent tracking-[0.3em] block mb-3">
                 {c['home.preloader'].kicker}
               </span>
-              <img src={c['global.header'].logo} alt="PEGASUS" className="h-9 md:h-10 w-auto" draggable={false} />
+              <img src={c['global.header'].logo} alt="PEGASUS — Mastery in Your Hands" className="h-12 md:h-14 w-auto" draggable={false} />
             </div>
 
             <div className="w-full h-72 max-w-2xl mx-auto flex items-center justify-center" style={{ perspective: 1200 }}>

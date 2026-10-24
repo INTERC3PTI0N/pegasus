@@ -8,7 +8,7 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 import type { SiteContent } from '@/lib/cms';
 
 export default function SiteHeader({ content }: { content: SiteContent['global.header'] }) {
-  const { navLinks, collectionLinks, logo, shopLabel, shopUrl } = content;
+  const { navLinks, collectionLinks, logo, logoOnDark, shopLabel, shopUrl } = content;
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [lang, setLang] = useState<'EN' | 'JP'>('EN');
@@ -36,9 +36,9 @@ export default function SiteHeader({ content }: { content: SiteContent['global.h
           {/* Logo — top left */}
           <Link href="/" className="cursor-pointer shrink-0" onClick={() => setMenuOpen(false)}>
             <img
-              src={logo}
-              alt="PEGASUS — Infinite Styling"
-              className={`w-auto transition-all duration-500 ${solid ? 'h-8 md:h-9' : 'h-9 md:h-11'} ${
+              src={solid ? logo : logoOnDark || logo}
+              alt="PEGASUS — Mastery in Your Hands"
+              className={`w-auto transition-all duration-500 ${solid ? 'h-11 md:h-12' : 'h-12 md:h-16'} ${
                 solid ? '' : 'drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]'
               }`}
               draggable={false}
