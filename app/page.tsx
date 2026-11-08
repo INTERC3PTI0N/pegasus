@@ -1,6 +1,7 @@
 import HomePage from '@/components/HomePage';
-import { getContent } from '@/lib/cms';
+import { getContent, type Catalogue } from '@/lib/cms';
 
 export default async function Home() {
-  return <HomePage content={await getContent()} />;
+  const content = await getContent();
+  return <HomePage content={content} catalogue={content['products.catalogue'] as Catalogue} />;
 }

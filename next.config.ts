@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Material collections were folded into /products (Cellulose Acetate and Wood return later).
+  async redirects() {
+    return [{ source: '/collections/:path*', destination: '/products', permanent: false }];
+  },
   // Images/videos uploaded in the Pegasus admin are stored as /cms-media/<id> and served by the admin.
   async rewrites() {
     const cms = process.env.CMS_URL?.replace(/\/$/, '');

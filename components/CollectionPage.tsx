@@ -5,6 +5,11 @@ import Link from 'next/link';
 import { motion } from 'motion/react';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 
+/**
+ * Page template for a material collection (e.g. Cellulose Acetate, Wood), kept for when those ranges
+ * return to the site. To add one: a content block in the admin schema plus a route that renders this.
+ * Note (Brand Guidelines §6): Flexinite® terminology must not be used for Cellulose Acetate or Wood.
+ */
 export interface CollectionPageData {
   tag: string;
   title: string;
@@ -42,10 +47,10 @@ export default function CollectionPage({ data }: { data: CollectionPageData }) {
             className="max-w-6xl mx-auto"
           >
             <Link
-              href="/#product-collections"
+              href="/products"
               className="inline-flex items-center gap-2 mono-tag text-xs text-silver hover:text-ink transition-all mb-10 cursor-pointer"
             >
-              <ArrowLeft className="w-3.5 h-3.5" /> All Collections
+              <ArrowLeft className="w-3.5 h-3.5" /> All Products
             </Link>
 
             <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-6 block w-fit">
@@ -95,9 +100,6 @@ export default function CollectionPage({ data }: { data: CollectionPageData }) {
         <section className="bg-mist border-y border-black/5 py-20 px-6 md:px-12 lg:px-24 mb-24">
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <motion.div {...reveal} className="lg:col-span-5">
-              <span className="mono-tag text-xs text-accent border-b border-accent/30 pb-2 mb-5 block w-fit">
-                PATENTED SYSTEM
-              </span>
               <h2 className="editorial-text text-4xl md:text-5xl text-ink mb-3">{data.techName}</h2>
               <p className="text-sm uppercase tracking-[0.15em] italic mb-6" style={{ color: '#00adbb' }}>
                 {data.techTagline}
@@ -144,10 +146,10 @@ export default function CollectionPage({ data }: { data: CollectionPageData }) {
             </div>
 
             <Link
-              href="/#request-brochure"
+              href="/contact"
               className="shrink-0 bg-ink text-white hover:bg-accent px-8 py-4 mono-tag text-xs transition-colors cursor-pointer"
             >
-              Request The Brochure
+              Send an enquiry
             </Link>
           </div>
         </section>

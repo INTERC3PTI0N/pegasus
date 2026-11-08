@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Instagram, Facebook, Youtube, ArrowUp, ArrowUpRight } from 'lucide-react';
+import { Instagram, Facebook, Youtube, ArrowUp, ArrowRight } from 'lucide-react';
 
 import type { SiteContent } from '@/lib/cms';
 
@@ -11,7 +11,7 @@ export default function SiteFooter({
   header,
 }: {
   content: SiteContent['global.footer'];
-  header: SiteContent['global.header']; // logo + shop button are shared with the header
+  header: SiteContent['global.header']; // logo + enquiry button are shared with the header
 }) {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -20,7 +20,7 @@ export default function SiteFooter({
       {/* Centred brand block */}
       <div className="flex flex-col items-center text-center gap-6 mb-16">
         <Link href="/" className="cursor-pointer">
-          <img src={header.logo} alt="PEGASUS — Mastery in Your Hands" className="h-16 w-auto" draggable={false} />
+          <img src={header.logo} alt="PEGASUS® — Mastery in Your Hands" className="h-16 w-auto" draggable={false} />
         </Link>
         <p className="text-xs text-silver max-w-sm leading-relaxed">
           {content.tagline}
@@ -63,30 +63,23 @@ export default function SiteFooter({
         ))}
       </div>
 
-      {/* Online shop + language */}
-      <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 mb-10">
-        <a
+      {/* Enquiry */}
+      <div className="max-w-4xl mx-auto flex justify-center mb-10">
+        <Link
           href={header.shopUrl}
-          target="_blank"
-          rel="noopener noreferrer"
           className="group inline-flex items-center gap-2 mono-tag text-[11px] px-6 py-3 border border-ink/20 text-ink hover:bg-ink hover:text-white transition-all"
         >
           {header.shopLabel}
-          <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </a>
-        <div className="flex items-center gap-2 mono-tag text-[11px] text-ink/60">
-          <span className="text-accent">EN</span>
-          <span className="opacity-40">/</span>
-          <span className="hover:text-ink transition-colors cursor-pointer">JP</span>
-        </div>
+          <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+        </Link>
       </div>
 
       {/* Legal */}
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] mono-tag text-silver/70">
         <span>© {new Date().getFullYear()} {content.copyright}</span>
         <div className="flex gap-6">
-          <a href={content.privacyUrl || '#'} className="hover:text-ink transition-colors">Privacy</a>
-          <a href={content.termsUrl || '#'} className="hover:text-ink transition-colors">Terms</a>
+          {content.privacyUrl && <a href={content.privacyUrl} className="hover:text-ink transition-colors">Privacy</a>}
+          {content.termsUrl && <a href={content.termsUrl} className="hover:text-ink transition-colors">Terms</a>}
         </div>
       </div>
 

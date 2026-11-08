@@ -15,6 +15,7 @@ export interface FeatureRowProps {
   href?: string;
   cta?: string;
   reverse?: boolean;      // image on the right instead of left
+  imageFit?: 'cover' | 'contain'; // contain = show a cut-out product whole
   id?: string;
 }
 
@@ -34,6 +35,7 @@ export default function FeatureRow({
   href,
   cta = 'View More',
   reverse = false,
+  imageFit = 'cover',
   id,
 }: FeatureRowProps) {
   return (
@@ -62,7 +64,7 @@ export default function FeatureRow({
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 w-full h-full object-cover"
+            className={`absolute inset-0 w-full h-full ${imageFit === 'contain' ? 'object-contain p-6 md:p-10' : 'object-cover'}`}
             draggable={false}
           />
           {/* Oversized index number floating on the image edge */}

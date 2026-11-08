@@ -1,22 +1,17 @@
 import type {Metadata} from 'next';
-import { Jost, Cormorant_Garamond } from 'next/font/google';
+import { Barlow_Condensed } from 'next/font/google';
 import './globals.css'; // Global styles
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import CombCursor from '@/components/CombCursor';
 import { getContent, isPreview } from '@/lib/cms';
 
-const jost = Jost({
+// Brand typography (Guidelines §16): DIN Condensed for headlines, Helvetica for body.
+// DIN Condensed is used where installed; Barlow Condensed is the web fallback.
+const dinFallback = Barlow_Condensed({
   subsets: ['latin'],
-  variable: '--font-jost',
-  display: 'swap',
-});
-
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-cormorant',
+  weight: ['500', '600', '700'],
+  variable: '--font-din-fallback',
   display: 'swap',
 });
 
@@ -30,7 +25,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   const preview = await isPreview();
 
   return (
-    <html lang="en" className={`${jost.variable} ${cormorant.variable}`}>
+    <html lang="en" className={dinFallback.variable}>
       <body suppressHydrationWarning className="bg-white text-ink antialiased overflow-x-hidden">
         {preview && (
           <div className="fixed bottom-4 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 bg-ink text-white px-4 py-2 mono-tag text-[11px] shadow-lg">

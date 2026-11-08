@@ -10,9 +10,17 @@ import defaults from '@/content/defaults.json';
 export type SiteContent = typeof defaults;
 export type Link = { label: string; href: string };
 export type FooterColumn = { heading: string; links: Link[] };
-export type Article = SiteContent['home.journal']['articles'][number];
-export type Location = SiteContent['home.contact']['locations'][number];
-export type CollectionContent = SiteContent['collection.hard-rubber'];
+// Typed by hand: the default product list starts with empty tag arrays, which JSON infers as never[].
+export type Product = {
+  model: string;
+  name: string;
+  function: string;
+  hairTypes: string[];
+  size: string;
+  description: string;
+  image: string;
+};
+export type Catalogue = Omit<SiteContent['products.catalogue'], 'products'> & { products: Product[] };
 
 export const CONTENT_TAG = 'site-content';
 

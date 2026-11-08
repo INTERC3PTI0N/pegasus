@@ -12,15 +12,16 @@
   --color-charcoal: #f6f6f3;
 }
 
-@theme inline {
-  --font-sans: var(--font-jost);
-  --font-mono: var(--font-jost);
-  --font-serif: var(--font-cormorant);
+/* Brand typography (Guidelines §16): DIN Condensed headlines, Helvetica body. */
+:root {
+  --font-editorial: 'DIN Condensed', 'DINCondensed-Bold', var(--font-din-fallback), 'Arial Narrow', sans-serif;
+  --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-:root {
-  --font-editorial: var(--font-cormorant), Georgia, 'Times New Roman', serif;
-  --font-display: var(--font-jost), 'Century Gothic', -apple-system, sans-serif;
+@theme inline {
+  --font-sans: var(--font-display);
+  --font-mono: var(--font-display);
+  --font-serif: var(--font-editorial);
 }
 
 /* Base Styles */
@@ -150,12 +151,13 @@ html.comb-cursor * {
   outline: none;
 }
 
-/* Editorial serif — luxury headings */
+/* Headlines — DIN Condensed, uppercase */
 .editorial-text {
   font-family: var(--font-editorial);
-  letter-spacing: -0.01em;
-  line-height: 1.05;
-  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  font-weight: 600;
 }
 
 /* Display grotesque — giant campaign words (JUUN.J style) */
@@ -170,7 +172,7 @@ html.comb-cursor * {
 .mono-tag {
   font-family: var(--font-display);
   text-transform: uppercase;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.2em;
   font-weight: 500;
 }
 

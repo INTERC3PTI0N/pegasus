@@ -47,7 +47,7 @@ export default function VideoBanner({ content: h }: { content: SiteContent['home
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="editorial-text text-white text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.02] max-w-5xl"
+          className="editorial-text text-white text-5xl md:text-7xl lg:text-[5.5rem] leading-[1] max-w-5xl"
         >
           {h.titleLine1}
           <br />
